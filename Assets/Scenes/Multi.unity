@@ -790,6 +790,15 @@ MonoBehaviour:
   timeArea: {fileID: 299760748}
   timeContainer: {fileID: 518812980}
   timeProgress: {fileID: 966465060}
+  question: {fileID: 1916103209}
+  answers:
+  - {fileID: 782084649}
+  - {fileID: 237824528}
+  - {fileID: 366816456}
+  easy: {fileID: 4900000, guid: 0b14cf210498142a3a7de17846c5db41, type: 3}
+  normal: {fileID: 4900000, guid: f73b1928060ec475bad7fd43e453c2e5, type: 3}
+  hard: {fileID: 4900000, guid: 4bcf8ac27a73e4f5e93eeba44da9c31d, type: 3}
+  crazy: {fileID: 4900000, guid: d32066aa1df614ae6b4f2839d552e33a, type: 3}
 --- !u!4 &309376610
 Transform:
   m_ObjectHideFlags: 0
@@ -3177,7 +3186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1666155718
 RectTransform:
   m_ObjectHideFlags: 0
