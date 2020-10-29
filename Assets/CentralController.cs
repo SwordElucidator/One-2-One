@@ -41,6 +41,8 @@ public class CentralController : MonoBehaviour
     public TextAsset hard;
     public TextAsset crazy;
     
+    public GameObject endArea;
+    
 
     private int _progress = 0;
     private Question _question;
@@ -97,12 +99,17 @@ public class CentralController : MonoBehaviour
                 // 判断一下做完没
                 if (!_questionAnswered)
                 {
-                    _dead = true;
+                    ChooseAnswer(-1);
                 }
                 yield return new WaitForSeconds(1.5f);  // 给点时间看看
                 if (!_dead)
                 {
                     GenerateQuestion();
+                }
+                else
+                {
+                    main.SetActive(false);
+                    endArea.SetActive(true);
                 }
             }
         }
