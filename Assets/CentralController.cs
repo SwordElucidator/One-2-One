@@ -31,6 +31,7 @@ public class CentralController : MonoBehaviour
     public RawImage[] avatars;
     public GameObject timeArea;
     public RectTransform timeContainer;
+    public Text timeText;
     public Image timeProgress;
     public Text question;
     public Text[] answers;
@@ -39,6 +40,7 @@ public class CentralController : MonoBehaviour
     public TextAsset normal;
     public TextAsset hard;
     public TextAsset crazy;
+    
 
     private int _progress = 0;
     private Question _question;
@@ -47,6 +49,7 @@ public class CentralController : MonoBehaviour
     private Questions _hard;
     private Questions _crazy;
     private bool _dead = false;
+    private bool _questionAnswered = false;
 
     private float _timeWidth;
     private float _leftTimePercentage = 1;
@@ -91,7 +94,16 @@ public class CentralController : MonoBehaviour
             // 如果还是这道题
             if (progress == _progress)
             {
-                GenerateQuestion();
+                // 判断一下做完没
+                if (!_questionAnswered)
+                {
+                    _dead = true;
+                }
+                yield return new WaitForSeconds(1.5f);  // 给点时间看看
+                if (!_dead)
+                {
+                    GenerateQuestion();
+                }
             }
         }
     }
@@ -138,10 +150,71 @@ public class CentralController : MonoBehaviour
             answers[1].text = answ[1].ToString();
             answers[2].text = answ[2].ToString();
         }
+        
+        foreach (var answer in answers)
+        {
+            answer.color = new Color(1f, 1f, 1f, 1f);
+            var parent = answer.transform.parent;
+            parent.Find("wrong").gameObject.SetActive(false);
+            parent.Find("right").gameObject.SetActive(false);
+        }
+        
 
         _progress += 1;
         _leftTimePercentage = 1;
+        timeProgress.color = new Color(0f, 0.69f, 0.35f);
         _loseRate = 0.33f;
+        _questionAnswered = false;
+        timeText.text = "Time";
+    }
+
+    private void ChooseAnswer(int index)
+    {
+        if (index >= 0)
+        {
+            var answer = int.Parse(answers[index].text);
+            _questionAnswered = true;
+            _dead = answer != _question.val;
+            
+            // 展示结果
+            var qum = "=<color=" + (answer == _question.val ? "#7ED321" : "#D0021B") + ">" + answer + "</color>";
+            question.text = _question.cal + qum;
+        }
+        else
+        {
+            _dead = true;
+        }
+        
+        foreach (var answer in answers)
+        {
+            answer.color = new Color(1f, 1f, 1f, 0.3f);
+            var parent = answer.transform.parent;
+            if (int.Parse(answer.text) == _question.val)
+            {
+                parent.Find("wrong").gameObject.SetActive(false);
+                parent.Find("right").gameObject.SetActive(true);
+            }
+            else
+            {
+                parent.Find("wrong").gameObject.SetActive(true);
+                parent.Find("right").gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void Choose0()
+    {
+        ChooseAnswer(0);
+    }
+    
+    public void Choose1()
+    {
+        ChooseAnswer(1);
+    }
+    
+    public void Choose2()
+    {
+        ChooseAnswer(2);
     }
 
     private int[] generateFakeAnswers(int answer)
@@ -235,14 +308,19 @@ public class CentralController : MonoBehaviour
             rectTransform.offsetMax = new Vector2(- (1 - _leftTimePercentage) * _timeWidth, rectTransform.offsetMax.y);
             // _timeWidth
             // timeProgress
-            if (lorigin >= 0.6 && _leftTimePercentage < 0.6)
+            if (lorigin >= 0.66 && _leftTimePercentage < 0.66)
             {
                 timeProgress.color = new Color(0.96f, 0.65f, 0.14f);
             }
-            if (lorigin >= 0.25 && _leftTimePercentage < 0.25)
+            if (lorigin >= 0.33 && _leftTimePercentage < 0.33)
             {
                 timeProgress.color = new Color(0.82f, 0.01f, 0.11f);
             }
         }
+        else
+        {
+            timeText.text = "Time Out";
+        }
     }
+    
 }
