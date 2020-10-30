@@ -104,7 +104,7 @@ public class CentralController : MonoBehaviour
     private IEnumerator Initial()
     {
         var currentUserCount = Random.Range(1, 17);
-        avatarCountText.text = "Survivor " + currentUserCount + "/20";
+        avatarCountText.text = "Player " + currentUserCount + "/20";
         _aliveNoneSelfAvatars = new List<RawImage>();
         for (var i = 1; i < currentUserCount; i++)
         {
@@ -120,7 +120,7 @@ public class CentralController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(0.1f, 1.5f));
             avatars[i].gameObject.SetActive(true);
             avatars[i].texture = Resources.Load<Texture2D>("Avatars/" + (i + 1));
-            avatarCountText.text = "Survivor " + (i + 1) + "/20";
+            avatarCountText.text = "Player " + (i + 1) + "/20";
             _aliveNoneSelfAvatars.Add(avatars[i]);
         }
 
@@ -134,7 +134,7 @@ public class CentralController : MonoBehaviour
         countDown.text = "1";
         yield return new WaitForSeconds(1);
         countDown.gameObject.SetActive(false);
-
+        avatarCountText.text = "Survivor 20/20";
 
         GenerateQuestion();
         main.SetActive(true);
