@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,7 @@ public class CentralController : MonoBehaviour
 {
 
     public Text waiting;
+    public Text testInfo;
     public Text countDown;
     public GameObject main;
     public Text avatarCountText;
@@ -82,6 +84,7 @@ public class CentralController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _hardness = Random.Range(0.1f, 0.9f);
         StartCoroutine(Initial());
         
         _easy = JsonUtility.FromJson<Questions>(easy.text);
@@ -110,6 +113,8 @@ public class CentralController : MonoBehaviour
             _aliveNoneSelfAvatars.Add(avatars[i]);
         }
         waiting.gameObject.SetActive(true);
+        testInfo.text = "Test Info:\nhardness = " + _hardness.ToString("#.00");
+        testInfo.gameObject.SetActive(true);
         for (var i = currentUserCount; i < 20; i++)
         {
             yield return new WaitForSeconds(Random.Range(0.1f, 1.5f));
@@ -121,6 +126,7 @@ public class CentralController : MonoBehaviour
 
 
         waiting.gameObject.SetActive(false);
+        testInfo.gameObject.SetActive(false);
         countDown.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
         countDown.text = "2";
@@ -349,7 +355,7 @@ public class CentralController : MonoBehaviour
 
             // 0.85的正确率
             // 其他的随便
-            if (Random.value < (_aliveNoneSelfAvatars.Count <= _maxRank - 1 ? 1 : leftPeople > 18 ? (0.9 + _hardness / 20) : leftPeople > 12 ? (0.85 + _hardness / 20) : leftPeople > 6 ? (0.9 + _hardness / 20) : (0.85 + _hardness / 20)))
+            if (Random.value < (_aliveNoneSelfAvatars.Count <= _maxRank - 1 ? 1 : leftPeople > 18 ? (0.86 + _hardness / 10) : leftPeople > 12 ? (0.82 + _hardness / 10) : leftPeople > 6 ? (0.86 + _hardness / 10) : (0.88 + _hardness / 10)))
             {
                 var pos = parents[rightAnswer].Find("Image1").position + _regularDistance * _counts[rightAnswer];
                 _counts[rightAnswer] += 1;
@@ -574,6 +580,11 @@ public class CentralController : MonoBehaviour
         {
             timeText.text = "Time Out";
         }
+    }
+
+    public void ResetScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     
 }
