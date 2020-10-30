@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "\u9996\u9875_\u9876\u90E8_\u6309\u94AE"
+  m_Name: corner_in_8
   m_Shader: {fileID: 4800000, guid: d3beb88e61f88ca4393acdefb005fa70, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -83,7 +83,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _WidthHeightRadius: {r: 0, g: 0, b: 0, a: 0}
-    - _halfSize: {r: 47.51387, g: 21.5, b: 0, a: 0}
+    - _halfSize: {r: 46.886707, g: 21.130005, b: 0, a: 0}
     - _r: {r: 8, g: 8, b: 8, a: 8}
-    - _rect2props: {r: 0.0000038146973, g: -0.0000076293945, b: 43.143326, a: 43.143326}
+    - _rect2props: {r: 0.0000076293945, g: -0.0000038146973, b: 42.43823, a: 42.43823}
   m_BuildTextureStacks: []
