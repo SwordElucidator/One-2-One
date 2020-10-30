@@ -3372,7 +3372,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 375, y: 667}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.1
+  m_MatchWidthOrHeight: 0.09
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -4337,7 +4337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 0, y: 0, z: 42, w: 42}
   material: {fileID: 2100000, guid: c0977e733cf35b64bbde6d607888b917, type: 2}
-  rect2props: {x: 0.000015258789, y: 20.999977, z: 159.34492, w: 159.34492}
+  rect2props: {x: 0.000030517578, y: 21.000023, z: 159.60088, w: 159.60088}
 --- !u!1 &911545096
 GameObject:
   m_ObjectHideFlags: 0
