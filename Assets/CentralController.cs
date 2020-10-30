@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -28,6 +30,7 @@ public class CentralController : MonoBehaviour
     public Text waiting;
     public Text countDown;
     public GameObject main;
+    public Text avatarCountText;
     public RawImage[] avatars;
     public GameObject timeArea;
     public RectTransform timeContainer;
@@ -42,6 +45,10 @@ public class CentralController : MonoBehaviour
     public TextAsset crazy;
     
     public GameObject endArea;
+    public GameObject endAreaFail;
+
+    public Text rank;
+    public Text moneyAmount;
     
 
     private int _progress = 0;
@@ -56,6 +63,12 @@ public class CentralController : MonoBehaviour
     private float _timeWidth;
     private float _leftTimePercentage = 1;
     private float _loseRate = 0;
+
+    private int _maxRank = 1;  // 最多能变成第几
+    public List<RawImage> _aliveNoneSelfAvatars;
+    private GameObject[] _toRemoveAvatars = new GameObject[0];
+    private int[] _counts;
+    private Vector3 _regularDistance;
     
     
     // Start is called before the first frame update
@@ -73,9 +86,28 @@ public class CentralController : MonoBehaviour
 
     private IEnumerator Initial()
     {
+        var currentUserCount = Random.Range(1, 17);
+        avatarCountText.text = "Survivor " + currentUserCount + "/20";
+        _aliveNoneSelfAvatars = new List<RawImage>();
+        for (var i = 1; i < currentUserCount; i++)
+        {
+            avatars[i].gameObject.SetActive(true);
+            avatars[i].texture = Resources.Load<Texture2D>("Avatars/" + (i + 1));  // TODO 更改这些用户
+            _aliveNoneSelfAvatars.Add(avatars[i]);
+        }
         waiting.gameObject.SetActive(true);
-        // TODO 注入用户
-        yield return new WaitForSeconds(3);
+        for (var i = currentUserCount; i < 20; i++)
+        {
+            yield return new WaitForSeconds(Random.Range(0.1f, 1.5f));
+            avatars[i].gameObject.SetActive(true);
+            avatars[i].texture = Resources.Load<Texture2D>("Avatars/" + (i + 1));
+            avatarCountText.text = "Survivor " + (i + 1) + "/20";
+            _aliveNoneSelfAvatars.Add(avatars[i]);
+        }
+        
+        Debug.Log(_aliveNoneSelfAvatars.Count);
+
+
         waiting.gameObject.SetActive(false);
         countDown.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
@@ -84,6 +116,8 @@ public class CentralController : MonoBehaviour
         countDown.text = "1";
         yield return new WaitForSeconds(1);
         countDown.gameObject.SetActive(false);
+
+
         GenerateQuestion();
         main.SetActive(true);
         timeArea.SetActive(true);
@@ -102,14 +136,24 @@ public class CentralController : MonoBehaviour
                     ChooseAnswer(-1);
                 }
                 yield return new WaitForSeconds(1.5f);  // 给点时间看看
-                if (!_dead)
+                if (!_dead && _aliveNoneSelfAvatars.Count > 0)
                 {
                     GenerateQuestion();
                 }
                 else
                 {
                     main.SetActive(false);
-                    endArea.SetActive(true);
+                    var final = _aliveNoneSelfAvatars.Count + 1;
+                    if (final <= 7)
+                    {
+                        rank.text = final == 1 ? "1st" : final == 2 ? "2nd" : final == 3 ? "3rd" : (final + "th");
+                        moneyAmount.text = final == 1 ? "10" : final == 2 ? "3" : final == 3 ? "2" : "1";
+                        endArea.SetActive(true);
+                    }
+                    else
+                    {
+                        endAreaFail.SetActive(true);
+                    }
                 }
             }
         }
@@ -173,25 +217,145 @@ public class CentralController : MonoBehaviour
         _loseRate = 0.33f;
         _questionAnswered = false;
         timeText.text = "Time";
+        StartCoroutine(SimulateChoose());
+    }
+    
+    public static void Shuffle<T>(IList<T> list)
+    {
+        RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
+        int n = list.Count;
+        while (n > 1)
+        {
+            byte[] box = new byte[1];
+            do provider.GetBytes(box);
+            while (!(box[0] < n * (Byte.MaxValue / n)));
+            int k = (box[0] % n);
+            n--;
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+
+    private IEnumerator SimulateChoose()
+    {
+        // TODO 根据_maxRank来决定
+        // _aliveNoneSelfAvatars;  // 
+        // _toRemoveAvatars
+    
+        foreach (var img in _toRemoveAvatars)
+        {
+            if (img)
+            {
+                Destroy(img);
+                
+            }
+        }
+        
+        _toRemoveAvatars = new GameObject[_aliveNoneSelfAvatars.Count + 1];  // 承载下面的所有
+        var rightAnswer = int.Parse(answers[0].text) == _question.val ? 0 : int.Parse(answers[1].text) == _question.val ? 1 : 2;
+        var wrong1 = rightAnswer == 0 ? 1 : 0;
+        var wrong2 = rightAnswer != 2 ? 2 : 1;
+        Shuffle(_aliveNoneSelfAvatars);
+        var leftPeople = _aliveNoneSelfAvatars.Count;
+        _counts = new[] {0, 0, 0};
+        
+        Debug.Log("left: " + leftPeople);
+
+        var initialTime = Random.Range(0.4f, 1f);
+        
+        // 找到位置
+        var parents = new []
+        {
+            answers[0].transform.parent.Find("Selected"),
+            answers[1].transform.parent.Find("Selected"),
+            answers[2].transform.parent.Find("Selected")
+        };
+        
+        parents[0].gameObject.SetActive(false);
+        parents[1].gameObject.SetActive(false);
+        parents[2].gameObject.SetActive(false);
+        
+        var i1 = parents[0].Find("Image1");
+        var i2 = parents[0].Find("Image2");
+        _regularDistance = i2.position - i1.position;
+        
+        var newAlives = new List<RawImage>();
+        
+        yield return new WaitForSeconds(initialTime);
+        // 开始有人选，顺序随机
+
+        for (var i = 0; i < leftPeople; i++)
+        {
+            // 如果超时了
+            if (_leftTimePercentage <= 0)
+            {
+                break;
+            }
+
+            // 0.85的正确率
+            // 其他的随便
+            if (Random.value < 0.85)
+            {
+                var pos = parents[rightAnswer].Find("Image1").position + _regularDistance * _counts[rightAnswer];
+                _counts[rightAnswer] += 1;
+                var newImg = Instantiate(_aliveNoneSelfAvatars[i].gameObject, parents[rightAnswer]);
+                newImg.transform.position = pos;
+                newImg.SetActive(true);
+                _toRemoveAvatars[i] = newImg;
+                newAlives.Add(_aliveNoneSelfAvatars[i]);  // 更新活着的
+            }
+            else if (Random.value < 0.5)
+            {
+                var pos = parents[wrong1].Find("Image1").position + _regularDistance * _counts[wrong1];
+                _counts[wrong1] += 1;
+                var newImg = Instantiate(_aliveNoneSelfAvatars[i].gameObject, parents[wrong1]);
+                newImg.transform.position = pos;
+                newImg.SetActive(true);
+                _toRemoveAvatars[i] = newImg;
+            }
+            else
+            {
+                var pos = parents[wrong2].Find("Image1").position + _regularDistance * _counts[wrong2];
+                _counts[wrong2] += 1;
+                var newImg = Instantiate(_aliveNoneSelfAvatars[i].gameObject, parents[wrong2]);
+                newImg.transform.position = pos;
+                newImg.SetActive(true);
+                _toRemoveAvatars[i] = newImg;
+            }
+            var nextRandom = Random.Range(0.05f, (3 - initialTime) / leftPeople);
+            initialTime += nextRandom;
+            yield return new WaitForSeconds(nextRandom);  // 可能有几个没答完的
+        }
+
+        _aliveNoneSelfAvatars = newAlives;
     }
 
     private void ChooseAnswer(int index)
     {
         if (index >= 0)
         {
-            var answer = int.Parse(answers[index].text);
             _questionAnswered = true;
+            var answer = int.Parse(answers[index].text);
             _dead = answer != _question.val;
             
             // 展示结果
             var qum = "=<color=" + (answer == _question.val ? "#7ED321" : "#D0021B") + ">" + answer + "</color>";
             question.text = _question.cal + qum;
+            
+            var p = answers[index].transform.parent.Find("Selected");
+            var pos = p.Find("Image1").position + _regularDistance * _counts[index];
+            _counts[index] += 1;
+            var newImg = Instantiate(avatars[0].transform.parent.gameObject, p);
+            newImg.transform.position = pos;
+            newImg.SetActive(true);
+            _toRemoveAvatars[_toRemoveAvatars.Length - 1] = newImg;
         }
         else
         {
             _dead = true;
         }
-        
+
         foreach (var answer in answers)
         {
             answer.color = new Color(1f, 1f, 1f, 0.3f);
@@ -200,11 +364,13 @@ public class CentralController : MonoBehaviour
             {
                 parent.Find("wrong").gameObject.SetActive(false);
                 parent.Find("right").gameObject.SetActive(true);
+                parent.Find("Selected").gameObject.SetActive(true);
             }
             else
             {
                 parent.Find("wrong").gameObject.SetActive(true);
                 parent.Find("right").gameObject.SetActive(false);
+                parent.Find("Selected").gameObject.SetActive(true);
             }
         }
     }
