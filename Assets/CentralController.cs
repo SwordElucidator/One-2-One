@@ -32,6 +32,9 @@ public class CentralController : MonoBehaviour
     public GameObject main;
     public Text avatarCountText;
     public RawImage[] avatars;
+    public RawImage[] avatarsShaders;
+    public Texture2D inputTexture;
+    public Texture2D deadTexture;
     public GameObject timeArea;
     public RectTransform timeContainer;
     public Text timeText;
@@ -49,8 +52,8 @@ public class CentralController : MonoBehaviour
 
     public Text rank;
     public Text moneyAmount;
-    
 
+    private Dictionary<RawImage, RawImage> _avatarShaderMap;
     private int _progress = 0;
     private Question _question;
     private Questions _easy;
@@ -63,12 +66,17 @@ public class CentralController : MonoBehaviour
     private float _timeWidth;
     private float _leftTimePercentage = 1;
     private float _loseRate = 0;
+    private int _leftAliveCount = 20;
 
     private int _maxRank = 1;  // 最多能变成第几
-    public List<RawImage> _aliveNoneSelfAvatars;
-    private GameObject[] _toRemoveAvatars = new GameObject[0];
+    private float _hardness = 0.8f;
+    private List<RawImage> _aliveNoneSelfAvatars;
+    private List<GameObject> _toRemoveAvatars = new List<GameObject>();
     private int[] _counts;
     private Vector3 _regularDistance;
+    
+    private Color _deadColor = new Color(0.36f, 0.39f, 0.42f, 0.78f);
+    private Color _onHoldColor = new Color(0f, 1f, 0.93f, 0.71f);
     
     
     // Start is called before the first frame update
@@ -82,6 +90,12 @@ public class CentralController : MonoBehaviour
         _crazy = JsonUtility.FromJson<Questions>(crazy.text);
         var rectTrans = timeContainer;
         _timeWidth = rectTrans.rect.width;
+        
+        _avatarShaderMap = new Dictionary<RawImage, RawImage>();
+        for (var i = 0; i < avatars.Length; i++)
+        {
+            _avatarShaderMap[avatars[i]] = avatarsShaders[i];
+        }
     }
 
     private IEnumerator Initial()
@@ -104,8 +118,6 @@ public class CentralController : MonoBehaviour
             avatarCountText.text = "Survivor " + (i + 1) + "/20";
             _aliveNoneSelfAvatars.Add(avatars[i]);
         }
-        
-        Debug.Log(_aliveNoneSelfAvatars.Count);
 
 
         waiting.gameObject.SetActive(false);
@@ -121,7 +133,7 @@ public class CentralController : MonoBehaviour
         GenerateQuestion();
         main.SetActive(true);
         timeArea.SetActive(true);
-        // 题目开始 TODO
+        // 题目开始
         while (!_dead)
         {
             // TODO 进度条
@@ -142,19 +154,43 @@ public class CentralController : MonoBehaviour
                 }
                 else
                 {
-                    main.SetActive(false);
-                    var final = _aliveNoneSelfAvatars.Count + 1;
-                    if (final <= 7)
-                    {
-                        rank.text = final == 1 ? "1st" : final == 2 ? "2nd" : final == 3 ? "3rd" : (final + "th");
-                        moneyAmount.text = final == 1 ? "10" : final == 2 ? "3" : final == 3 ? "2" : "1";
-                        endArea.SetActive(true);
-                    }
-                    else
-                    {
-                        endAreaFail.SetActive(true);
-                    }
+
+                    StartCoroutine(OnFail());
                 }
+            }
+        }
+    }
+
+    private IEnumerator OnFail()
+    {
+        var group = main.GetComponent<CanvasGroup>();
+        while (group.alpha > 0)
+        {
+            group.alpha -= Time.deltaTime * 1f;
+            yield return null;
+        }
+        main.SetActive(false);
+        var final = _aliveNoneSelfAvatars.Count + 1;
+        if (final <= 4)
+        {
+            rank.text = final == 1 ? "1st" : final == 2 ? "2nd" : final == 3 ? "3rd" : (final + "th");
+            moneyAmount.text = final == 1 ? "10" : final == 2 ? "5" : final == 3 ? "3" : "2";
+            endArea.SetActive(true);
+            var endGroup = endArea.GetComponent<CanvasGroup>();
+            while (endGroup.alpha < 1)
+            {
+                endGroup.alpha += Time.deltaTime * 1f;
+                yield return null;
+            }
+        }
+        else
+        {
+            endAreaFail.SetActive(true);
+            var endGroup = endAreaFail.GetComponent<CanvasGroup>();
+            while (endGroup.alpha < 1)
+            {
+                endGroup.alpha += Time.deltaTime * 1f;
+                yield return null;
             }
         }
     }
@@ -162,7 +198,7 @@ public class CentralController : MonoBehaviour
     private void GenerateQuestion()
     {
         var qum = "=<color=#D0021B>?</color>";
-        if (_progress <= 3)
+        if (_progress <= (_hardness < 0.2 ? 5 : _hardness < 0.4 ? 3 : _hardness < 0.6 ? 2 : _hardness < 0.8 ? 1 : 0))
         {
             // ez
             _question = _easy.questions[Random.Range(0, _easy.questions.Length)];
@@ -170,7 +206,7 @@ public class CentralController : MonoBehaviour
             answers[0].text = "1";
             answers[1].text = "2";
             answers[2].text = "3";
-        }else if (_progress <= 15)
+        }else if (_progress <= (_hardness < 0.2 ? 20 : _hardness < 0.4 ? 15 : _hardness < 0.6 ? 10 : _hardness < 0.8 ? 5 : 2))
         {
             // normal
             _question = _normal.questions[Random.Range(0, _normal.questions.Length)];
@@ -178,7 +214,7 @@ public class CentralController : MonoBehaviour
             answers[0].text = "1";
             answers[1].text = "2";
             answers[2].text = "3";
-        }else if (_progress <= 30)
+        }else if (_progress <= (_hardness < 0.2 ? 50 : _hardness < 0.4 ? 30 : _hardness < 0.6 ? 20 : _hardness < 0.8 ? 10 : 5))
         {
             // hard
             _question = _hard.questions[Random.Range(0, _hard.questions.Length)];
@@ -209,8 +245,18 @@ public class CentralController : MonoBehaviour
             parent.Find("wrong").gameObject.SetActive(false);
             parent.Find("right").gameObject.SetActive(false);
         }
-        
 
+        foreach (var image in _aliveNoneSelfAvatars)
+        {
+            _avatarShaderMap[image].color = _onHoldColor;
+            _avatarShaderMap[image].transform.Find("Mark").GetComponent<RawImage>().texture = inputTexture;
+            _avatarShaderMap[image].gameObject.SetActive(true);
+        }
+        
+        _avatarShaderMap[avatars[0]].color = _onHoldColor;
+        _avatarShaderMap[avatars[0]].transform.Find("Mark").GetComponent<RawImage>().texture = inputTexture;
+        _avatarShaderMap[avatars[0]].gameObject.SetActive(true);
+        
         _progress += 1;
         _leftTimePercentage = 1;
         timeProgress.color = new Color(0f, 0.69f, 0.35f);
@@ -220,7 +266,7 @@ public class CentralController : MonoBehaviour
         StartCoroutine(SimulateChoose());
     }
     
-    public static void Shuffle<T>(IList<T> list)
+    private static void Shuffle<T>(IList<T> list)
     {
         RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
         int n = list.Count;
@@ -248,21 +294,18 @@ public class CentralController : MonoBehaviour
             if (img)
             {
                 Destroy(img);
-                
             }
         }
-        
-        _toRemoveAvatars = new GameObject[_aliveNoneSelfAvatars.Count + 1];  // 承载下面的所有
+
+        _toRemoveAvatars = new List<GameObject>();  // 承载下面的所有
         var rightAnswer = int.Parse(answers[0].text) == _question.val ? 0 : int.Parse(answers[1].text) == _question.val ? 1 : 2;
         var wrong1 = rightAnswer == 0 ? 1 : 0;
         var wrong2 = rightAnswer != 2 ? 2 : 1;
         Shuffle(_aliveNoneSelfAvatars);
         var leftPeople = _aliveNoneSelfAvatars.Count;
         _counts = new[] {0, 0, 0};
-        
-        Debug.Log("left: " + leftPeople);
 
-        var initialTime = Random.Range(0.4f, 1f);
+        var initialTime = Random.Range(0.4f, leftPeople > 10 ? 1.5f : leftPeople > 5 ? 2f : leftPeople > 2 ? 2.5f : leftPeople > 1 ? 3f : 3.2f);
         
         // 找到位置
         var parents = new []
@@ -279,31 +322,43 @@ public class CentralController : MonoBehaviour
         var i1 = parents[0].Find("Image1");
         var i2 = parents[0].Find("Image2");
         _regularDistance = i2.position - i1.position;
-        
-        var newAlives = new List<RawImage>();
-        
+        if (leftPeople > 14)
+        {
+            _regularDistance += new Vector3(-4, 0, 0);
+        }else if (leftPeople <= 5)
+        {
+            _regularDistance += new Vector3(4, 0, 0);
+        }
+
         yield return new WaitForSeconds(initialTime);
         // 开始有人选，顺序随机
-
-        for (var i = 0; i < leftPeople; i++)
+        var i = 0;
+        while (i < _aliveNoneSelfAvatars.Count)
         {
             // 如果超时了
             if (_leftTimePercentage <= 0)
             {
-                break;
+                _avatarShaderMap[_aliveNoneSelfAvatars[i]].color = _deadColor;
+                _avatarShaderMap[_aliveNoneSelfAvatars[i]].transform.Find("Mark").GetComponent<RawImage>().texture = deadTexture;
+                _leftAliveCount -= 1;
+                avatarCountText.text = "Survivor " + _leftAliveCount + "/20";
+                _aliveNoneSelfAvatars.RemoveAt(i);
+                // Debug.Log("清理");
+                continue;
             }
 
             // 0.85的正确率
             // 其他的随便
-            if (Random.value < 0.85)
+            if (Random.value < (_aliveNoneSelfAvatars.Count <= _maxRank - 1 ? 1 : leftPeople > 18 ? (0.9 + _hardness / 20) : leftPeople > 12 ? (0.85 + _hardness / 20) : leftPeople > 6 ? (0.9 + _hardness / 20) : (0.85 + _hardness / 20)))
             {
                 var pos = parents[rightAnswer].Find("Image1").position + _regularDistance * _counts[rightAnswer];
                 _counts[rightAnswer] += 1;
                 var newImg = Instantiate(_aliveNoneSelfAvatars[i].gameObject, parents[rightAnswer]);
                 newImg.transform.position = pos;
                 newImg.SetActive(true);
-                _toRemoveAvatars[i] = newImg;
-                newAlives.Add(_aliveNoneSelfAvatars[i]);  // 更新活着的
+                _toRemoveAvatars.Add(newImg);
+                _avatarShaderMap[_aliveNoneSelfAvatars[i]].gameObject.SetActive(false);
+                i += 1;
             }
             else if (Random.value < 0.5)
             {
@@ -312,7 +367,13 @@ public class CentralController : MonoBehaviour
                 var newImg = Instantiate(_aliveNoneSelfAvatars[i].gameObject, parents[wrong1]);
                 newImg.transform.position = pos;
                 newImg.SetActive(true);
-                _toRemoveAvatars[i] = newImg;
+                _toRemoveAvatars.Add(newImg);
+                _avatarShaderMap[_aliveNoneSelfAvatars[i]].color = _deadColor;
+                _avatarShaderMap[_aliveNoneSelfAvatars[i]].transform.Find("Mark").GetComponent<RawImage>().texture = deadTexture;
+                _leftAliveCount -= 1;
+                avatarCountText.text = "Survivor " + _leftAliveCount + "/20";
+                // Debug.Log("清理");
+                _aliveNoneSelfAvatars.RemoveAt(i);
             }
             else
             {
@@ -321,18 +382,25 @@ public class CentralController : MonoBehaviour
                 var newImg = Instantiate(_aliveNoneSelfAvatars[i].gameObject, parents[wrong2]);
                 newImg.transform.position = pos;
                 newImg.SetActive(true);
-                _toRemoveAvatars[i] = newImg;
+                _toRemoveAvatars.Add(newImg);
+                _avatarShaderMap[_aliveNoneSelfAvatars[i]].color = _deadColor;
+                _avatarShaderMap[_aliveNoneSelfAvatars[i]].transform.Find("Mark").GetComponent<RawImage>().texture = deadTexture;
+                _leftAliveCount -= 1;
+                avatarCountText.text = "Survivor " + _leftAliveCount + "/20";
+                // Debug.Log("清理");
+                _aliveNoneSelfAvatars.RemoveAt(i);
             }
-            var nextRandom = Random.Range(0.05f, (3 - initialTime) / leftPeople);
+            // 需要考虑
+            var nextRandom = Random.Range(0.05f, Math.Max(((leftPeople > 15 ? 3.05f : 2.85f) - initialTime) / (_aliveNoneSelfAvatars.Count - i), 0.06f));
+            // Debug.Log(nextRandom);
             initialTime += nextRandom;
             yield return new WaitForSeconds(nextRandom);  // 可能有几个没答完的
         }
-
-        _aliveNoneSelfAvatars = newAlives;
     }
 
     private void ChooseAnswer(int index)
     {
+        if (_questionAnswered || _dead) return;
         if (index >= 0)
         {
             _questionAnswered = true;
@@ -349,11 +417,23 @@ public class CentralController : MonoBehaviour
             var newImg = Instantiate(avatars[0].transform.parent.gameObject, p);
             newImg.transform.position = pos;
             newImg.SetActive(true);
-            _toRemoveAvatars[_toRemoveAvatars.Length - 1] = newImg;
+            _toRemoveAvatars.Add(newImg);
         }
         else
         {
             _dead = true;
+        }
+
+        if (_dead)
+        {
+            _avatarShaderMap[avatars[0]].color = _deadColor;
+            _avatarShaderMap[avatars[0]].transform.Find("Mark").GetComponent<RawImage>().texture = deadTexture;
+            _leftAliveCount -= 1;
+            avatarCountText.text = "Survivor " + _leftAliveCount + "/20";
+        }
+        else
+        {
+            _avatarShaderMap[avatars[0]].gameObject.SetActive(false);
         }
 
         foreach (var answer in answers)
@@ -436,7 +516,7 @@ public class CentralController : MonoBehaviour
         }
         // 较大情况
         // 以5结尾
-        if (answer % 10 == 5)
+        if (answer % 10 == 5 || answer % 10 == 0 || Random.value >= 0.6f)
         {
             if (Random.value > 0.66)
             {
@@ -449,7 +529,7 @@ public class CentralController : MonoBehaviour
             return new []{answer - 10, answer, answer + 10};
         }
         var m1 = Random.Range(0, 15);
-        var m2 = Random.Range(m1, 20);
+        var m2 = Random.Range(m1 + 1, 20);
         if (Random.value > 0.66)
         {
             return new []{answer, answer + m1, answer + m2};
