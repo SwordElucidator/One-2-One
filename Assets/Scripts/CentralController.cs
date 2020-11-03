@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using GoogleMobileAds.Api;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -39,10 +40,16 @@ public class CentralController : MonoBehaviour
     public Text rank;
     public Text moneyAmount;
 
-    public Text DoubleButtonText;
+    public Text doubleButtonText;
+
+    public Text extraMoneyAmountText;
+    public Text extraMoneyNameText;
+    public GameObject extraMoneyPanel;
 
     private Dictionary<RawImage, RawImage> _avatarShaderMap;
     private int _progress = 0;
+    private int _bet = 1;
+    private int _money = 0;
     private Question _question;
     private Questions _easy;
     private Questions _normal;
@@ -65,8 +72,8 @@ public class CentralController : MonoBehaviour
     
     private Color _deadColor = new Color(0.36f, 0.39f, 0.42f, 0.78f);
     private Color _onHoldColor = new Color(0f, 1f, 0.93f, 0.71f);
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -166,8 +173,9 @@ public class CentralController : MonoBehaviour
         if (final <= 4)
         {
             rank.text = final == 1 ? "1st" : final == 2 ? "2nd" : final == 3 ? "3rd" : (final + "th");
-            moneyAmount.text = "+" + (final == 1 ? "10" : final == 2 ? "4" : final == 3 ? "3" : "2");
-            DoubleButtonText.text = final == 1 ? "Get Money" : "Double";
+            _money = final == 1 ? 10 : final == 2 ? 4 : final == 3 ? 3 : 2;
+            moneyAmount.text = "+" + _money;
+            doubleButtonText.text = final == 1 ? "Get Money" : "Double";
             endArea.SetActive(true);
             var endGroup = endArea.GetComponent<CanvasGroup>();
             while (endGroup.alpha < 1)
@@ -572,6 +580,24 @@ public class CentralController : MonoBehaviour
     public void ResetScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void HandleOnRewarded()
+    {
+        switch (GetComponent<RewardedHandler>().GetAdReason())
+        {
+            case "Redeem":
+                extraMoneyAmountText.text = "+" + _bet;
+                extraMoneyNameText.text = "Your redeem";
+                break;
+            case "Money":
+                extraMoneyAmountText.text = "+" + _money;
+                extraMoneyNameText.text = "You got";
+                break;
+        }
+        // TODO 双倍/拿钱/赎回，总之是给钱的，要给到用户的兜里
+        extraMoneyPanel.SetActive(true);
+        
     }
     
     public void GoBack()
