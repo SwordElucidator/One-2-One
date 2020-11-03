@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using GoogleMobileAds.Api;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -65,8 +66,8 @@ public class CentralController : MonoBehaviour
     
     private Color _deadColor = new Color(0.36f, 0.39f, 0.42f, 0.78f);
     private Color _onHoldColor = new Color(0f, 1f, 0.93f, 0.71f);
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
