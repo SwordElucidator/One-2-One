@@ -39,6 +39,8 @@ public class CentralController : MonoBehaviour
     public Text rank;
     public Text moneyAmount;
 
+    public Text DoubleButtonText;
+
     private Dictionary<RawImage, RawImage> _avatarShaderMap;
     private int _progress = 0;
     private Question _question;
@@ -164,7 +166,8 @@ public class CentralController : MonoBehaviour
         if (final <= 4)
         {
             rank.text = final == 1 ? "1st" : final == 2 ? "2nd" : final == 3 ? "3rd" : (final + "th");
-            moneyAmount.text = "+" + (final == 1 ? "10" : final == 2 ? "5" : final == 3 ? "3" : "2");
+            moneyAmount.text = "+" + (final == 1 ? "10" : final == 2 ? "4" : final == 3 ? "3" : "2");
+            DoubleButtonText.text = final == 1 ? "Get Money" : "Double";
             endArea.SetActive(true);
             var endGroup = endArea.GetComponent<CanvasGroup>();
             while (endGroup.alpha < 1)
@@ -569,6 +572,11 @@ public class CentralController : MonoBehaviour
     public void ResetScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
+    public void GoBack()
+    {
+        SceneManager.LoadScene("Home");
     }
     
 }
