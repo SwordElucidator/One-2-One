@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using GoogleMobileAds.Api;
+using GoogleMobileAds.Api.Mediation.Vungle;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -39,6 +40,14 @@ public class RewardedHandler : MonoBehaviour
     public void CreateAd()
     {
         _rewardedAd = new RewardedAd(RewardAdUnitId);
+        
+        // 汪狗特殊要求
+        VungleRewardedVideoMediationExtras extras = new VungleRewardedVideoMediationExtras();
+#if UNITY_ANDROID
+        extras.SetAllPlacements(new string[] { "R-2940625" });
+#elif UNITY_IPHONE
+        extras.SetAllPlacements(new string[] { "R-0525289" });
+#endif
         
         // Called when an ad request has successfully loaded.
         _rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
