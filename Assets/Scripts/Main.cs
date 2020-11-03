@@ -6,7 +6,7 @@ public class Main : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void OnBeforeSceneLoadRuntimeMethod()
     {
-        Debug.Log("第一个场景加载前");
+        Debug.Log("第一个场景加载前1");
     }
 
     private void Awake()
@@ -22,13 +22,13 @@ public class Main : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void OnAfterSceneLoadRuntimeMethod()
     {
-        Debug.Log("第一个场景加载后");
+        Debug.Log("第一个场景加载后2");
     }
 
     [RuntimeInitializeOnLoadMethod]
     static void OnRuntimeMethodLoad()
     {
-        Debug.Log("第一个场景加载后");
+        Debug.Log("第一个场景加载后3");
     }
 
     private void Reset()

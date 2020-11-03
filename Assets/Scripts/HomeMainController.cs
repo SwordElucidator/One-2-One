@@ -1,30 +1,49 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HomeMainController : MonoBehaviour
+// public interface IHomeMainMessageTarget : IEventSystemHandler
+// {
+//     // 可通过消息系统调用的函数
+//     void OnMoneyOrCoinChange(BaseEventData data);
+//     void OnScoreOrChampionChange(BaseEventData data);
+// }
+
+// public class Datass : BaseEventData
+// {
+//     public Datass(EventSystem eventSystem) : base(eventSystem)
+//     {
+//     }
+// }
+
+public class HomeMainController : MonoBehaviour // , IHomeMainMessageTarget
 {
     // main
-    // public GameObject main;
-    // public Button mainSettingsBtn;
     public Text mainMoneyText;
     public Text mainCoinText;
     public Text mainScoreText;
     public Text mainChampionText;
-    // public Button mainSingleBtn;
-    // public Button mainMultiBtn;
     public Text mainMultiNeedText;
     public Image mainMultiNeedImageMoney;
     public Image mainMultiNeedImageCoin;
 
     // welcome
-    public GameObject welcome;
-    public Text welcomeGold;
+    public GameObject welcomeObj;
+    public Text welcomeGoldText;
 
     // settings
-    public GameObject settings;
+    public GameObject settingsObj;
+    public RawImage settingsAvatarImage;
+    public InputField settingsNameInput;
 
     // agreement
-    public GameObject agreement;
+    public GameObject agreement; // TODO
+    
+    // bill
+    public GameObject billObj;
+    public ScrollRect billListScroll;
+    public Text billSpeedQueueCountText;
+    public GameObject billSpeedFinishObj;
+    public Text billSpeedFinishTitleText;
 
     void Start()
     {
@@ -35,15 +54,21 @@ public class HomeMainController : MonoBehaviour
     {
     }
 
+    // public static void OnMemoryChange(GameObject target,)
+    // {
+    //     ExecuteEvents.Execute<IHomeMainMessageTarget>(target, new Datass(EventSystem.current), (x,y)=>x.OnMoneyOrCoinChange(y));
+    // }
+
     private void Init()
     {
         CheckWelcomeVisible();
-        RefreshPlayValue();
-        // TODO actionValue
-        // TODO 来点动画？
+        RefreshMainView();
     }
 
-    private void RefreshPlayValue()
+    /**
+     ***************************************** Main ******************************************* 
+     */
+    private void RefreshMainView()
     {
         mainMoneyText.text = "99.99"; // TODO perGet
         mainCoinText.text = "2333"; // TODO petGet
@@ -55,20 +80,27 @@ public class HomeMainController : MonoBehaviour
         mainMultiNeedImageCoin.gameObject.SetActive(!needMonty);
     }
 
+    // public void OnMoneyOrCoinChange(BaseEventData data)
+    // {
+    // }
+    //
+    // public void OnScoreOrChampionChange(BaseEventData data)
+    // {
+    // }
+
     /**
      ***************************************** Welcome ******************************************* 
      */
     private void CheckWelcomeVisible()
     {
         const bool show = true; // TODO perGet
-        welcome.SetActive(show);
-        welcomeGold.text = "100"; // TODO value
+        welcomeObj.SetActive(show);
+        welcomeGoldText.text = "100"; // TODO perGet
     }
 
     public void OnWelcomeHidePress()
     {
-        welcome.SetActive(false);
-        // btn.onClick.AddListener();
+        welcomeObj.SetActive(false);
         // TODO perSet
     }
 
@@ -77,13 +109,14 @@ public class HomeMainController : MonoBehaviour
      */
     public void OnSettingsShowPress()
     {
-        settings.SetActive(true);
-        // TODO nameValue
+        settingsObj.SetActive(true);
+        // settingsAvatarImage.texture = ???; // TODO perGet
+        settingsNameInput.text = "你猜"; // TODO perGet
     }
 
     public void OnSettingsHidePress()
     {
-        settings.SetActive(false);
+        settingsObj.SetActive(false);
     }
 
     public void OnSettingsAvatarPress()
@@ -93,7 +126,9 @@ public class HomeMainController : MonoBehaviour
 
     public void OnSettingsNameSavePress()
     {
+        // Debug.Log("--->" + settingsNameInput.text);
         // TODO saveName
+        OnSettingsHidePress();
     }
 
     /**
@@ -114,17 +149,14 @@ public class HomeMainController : MonoBehaviour
      */
     public void OnBillShowPress()
     {
-        // TODO nav
+        billObj.SetActive(true);
+        billSpeedFinishObj.SetActive(false);
+        // TODO init
     }
 
     public void OnBillHidePress()
     {
-        // TODO nav
-    }
-
-    public void OnBillCashOutPress()
-    {
-        // TODO nav
+        billObj.SetActive(false);
     }
 
     public void BillCashOutOver()
@@ -134,7 +166,35 @@ public class HomeMainController : MonoBehaviour
 
     public void OnBillSpeedUpPress()
     {
-        // TODO ad + finishAlert
+        // TODO ad
+    }
+    
+    public void BillSpeedUpFinish()
+    {
+        // TODO finishAlert
+    }
+    
+    public void OnBillSpeedUpFinishHidePress()
+    {
+        billSpeedFinishObj.SetActive(false);
+    }
+
+    /**
+     ***************************************** CashOut ******************************************* 
+     */
+    public void OnCashOutShowPress()
+    {
+        // TODO nav
+    }
+
+    public void OnCashOutHidePress()
+    {
+        // TODO nav
+    }
+
+    public void OnCashOutActionPress()
+    {
+        // TODO nav
     }
 
     /**
