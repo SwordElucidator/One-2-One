@@ -908,7 +908,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 173609255}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 817990787}
+        m_TargetAssemblyTypeName: HomeMainController, Assembly-CSharp
+        m_MethodName: OnSettingsShowPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &173609255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,7 +1042,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 175050798}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 817990787}
+        m_TargetAssemblyTypeName: HomeMainController, Assembly-CSharp
+        m_MethodName: OnBillShowPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &175050798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3021,7 +3045,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 569211746}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 817990787}
+        m_TargetAssemblyTypeName: HomeMainController, Assembly-CSharp
+        m_MethodName: OnGameMultiPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &569211746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4381,9 +4417,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5aa103815476476d888ef2e2523e1eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMoneyText: {fileID: 1123293640}
+  mainCoinText: {fileID: 1094653712}
+  mainScoreText: {fileID: 83038004}
+  mainChampionText: {fileID: 1275646072}
+  mainMultiNeedText: {fileID: 1400858508}
+  mainMultiNeedImageMoney: {fileID: 716363472}
+  mainMultiNeedImageCoin: {fileID: 1160054472}
   welcome: {fileID: 218157275}
   welcomeGold: {fileID: 382699750}
   settings: {fileID: 0}
+  agreement: {fileID: 0}
 --- !u!1 &840308308
 GameObject:
   m_ObjectHideFlags: 0
@@ -5981,7 +6025,7 @@ RectTransform:
   m_Father: {fileID: 689339039}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.3, y: 0}
+  m_AnchorMin: {x: 0.35, y: 0}
   m_AnchorMax: {x: 0.9, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -6181,7 +6225,7 @@ RectTransform:
   m_Father: {fileID: 175050796}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.3, y: 0}
+  m_AnchorMin: {x: 0.35, y: 0}
   m_AnchorMax: {x: 0.9, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -8309,7 +8353,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 817990787}
         m_TargetAssemblyTypeName: HomeMainController, Assembly-CSharp
-        m_MethodName: HideWelcome
+        m_MethodName: OnWelcomeHidePress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10402,7 +10446,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1897583541}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 817990787}
+        m_TargetAssemblyTypeName: HomeMainController, Assembly-CSharp
+        m_MethodName: OnGameSinglePress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1897583541
 MonoBehaviour:
   m_ObjectHideFlags: 0

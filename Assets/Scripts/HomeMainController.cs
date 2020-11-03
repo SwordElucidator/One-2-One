@@ -4,12 +4,21 @@ using UnityEngine.UI;
 public class HomeMainController : MonoBehaviour
 {
     // main
+    // public GameObject main;
+    // public Button mainSettingsBtn;
+    public Text mainMoneyText;
+    public Text mainCoinText;
+    public Text mainScoreText;
+    public Text mainChampionText;
+    // public Button mainSingleBtn;
+    // public Button mainMultiBtn;
+    public Text mainMultiNeedText;
+    public Image mainMultiNeedImageMoney;
+    public Image mainMultiNeedImageCoin;
 
     // welcome
     public GameObject welcome;
-
     public Text welcomeGold;
-    // public Button btn;
 
     // settings
     public GameObject settings;
@@ -29,10 +38,21 @@ public class HomeMainController : MonoBehaviour
     private void Init()
     {
         CheckWelcomeVisible();
-        // TODO money(unit) + gold
-        // TODO score + champion
+        RefreshPlayValue();
         // TODO actionValue
         // TODO 来点动画？
+    }
+
+    private void RefreshPlayValue()
+    {
+        mainMoneyText.text = "99.99"; // TODO perGet
+        mainCoinText.text = "2333"; // TODO petGet
+        mainScoreText.text = "5600000"; // TODO petGet
+        mainChampionText.text = "111"; // TODO petGet
+        const bool needMonty = true; // TODO check
+        mainMultiNeedText.text = "12"; // TODO check
+        mainMultiNeedImageMoney.gameObject.SetActive(needMonty);
+        mainMultiNeedImageCoin.gameObject.SetActive(!needMonty);
     }
 
     /**
@@ -128,7 +148,7 @@ public class HomeMainController : MonoBehaviour
     /**
      ***************************************** Multi ******************************************* 
      */
-    public void OnMultiSinglePress()
+    public void OnGameMultiPress()
     {
         // TODO check + alert + nav
     }
