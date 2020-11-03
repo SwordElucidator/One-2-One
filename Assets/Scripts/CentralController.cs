@@ -164,7 +164,7 @@ public class CentralController : MonoBehaviour
         if (final <= 4)
         {
             rank.text = final == 1 ? "1st" : final == 2 ? "2nd" : final == 3 ? "3rd" : (final + "th");
-            moneyAmount.text = final == 1 ? "10" : final == 2 ? "5" : final == 3 ? "3" : "2";
+            moneyAmount.text = "+" + (final == 1 ? "10" : final == 2 ? "5" : final == 3 ? "3" : "2");
             endArea.SetActive(true);
             var endGroup = endArea.GetComponent<CanvasGroup>();
             while (endGroup.alpha < 1)
