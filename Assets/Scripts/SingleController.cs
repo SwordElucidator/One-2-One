@@ -61,6 +61,19 @@ public class SingleController : MonoBehaviour
     void Start()
     {
         _hardness = Random.Range(0.1f, 0.9f);
+        
+        if (InterState.Inherit)  // 继承
+        {
+            _hardness = InterState.Hardness;
+            _money = InterState.Money;
+            _progress = InterState.Progress;
+            _canRevive = InterState.CanRevive;
+            InterState.Inherit = false;
+        }
+        
+        scoreTextTop.text = _progress.ToString();
+        moneyTextTop.text = "+" + _money;
+        
         StartCoroutine(Initial());
 
         _easy = JsonUtility.FromJson<Questions>(easy.text);
@@ -69,8 +82,6 @@ public class SingleController : MonoBehaviour
         _crazy = JsonUtility.FromJson<Questions>(crazy.text);
         var rectTrans = timeContainer;
         _timeWidth = rectTrans.rect.width;
-        scoreTextTop.text = "0";
-        moneyTextTop.text = "+0";
     }
 
     private IEnumerator Initial()
@@ -88,32 +99,6 @@ public class SingleController : MonoBehaviour
         GenerateQuestion();
         main.SetActive(true);
         timeArea.SetActive(true);
-        // 题目开始
-        while (!_dead)
-        {
-            // TODO 进度条
-            var progress = _progress;
-            yield return new WaitForSeconds(3);
-            // 如果还是这道题
-            if (progress == _progress)
-            {
-                // 判断一下做完没
-                if (!_questionAnswered)
-                {
-                    ChooseAnswer(-1);
-                }
-                yield return new WaitForSeconds(1f);  // 给点时间看看
-                if (!_dead)
-                {
-                    if (progress == _progress) GenerateQuestion();
-                }
-                else
-                {
-
-                    StartCoroutine(OnFail());
-                }
-            }
-        }
     }
 
     private IEnumerator OnFail()
@@ -210,6 +195,32 @@ public class SingleController : MonoBehaviour
         _loseRate = 0.33f;
         _questionAnswered = false;
         timeText.text = "Time";
+        StartCoroutine(AutoHandleTimeOver());
+    }
+
+    private IEnumerator AutoHandleTimeOver()
+    {
+        var progress = _progress;
+        yield return new WaitForSeconds(3);
+        // 如果还是这道题
+        if (progress == _progress)
+        {
+            // 判断一下做完没
+            if (!_questionAnswered)
+            {
+                ChooseAnswer(-1);
+            }
+            yield return new WaitForSeconds(1f);  // 给点时间看看
+            if (!_dead)
+            {
+                if (progress == _progress) GenerateQuestion();
+            }
+            else
+            {
+
+                StartCoroutine(OnFail());
+            }
+        }
     }
     
     private static void Shuffle<T>(IList<T> list)
@@ -417,9 +428,25 @@ public class SingleController : MonoBehaviour
         }
     }
 
+    public void Revive()
+    {
+        // 复活，本质上是重load但继承进度,TODO 可能要退还已经入账的钱，或者设计成出去再退
+        InterState.Hardness = _hardness;
+        InterState.Money = _money;
+        InterState.Progress = _progress;
+        InterState.CanRevive = false;
+        InterState.Inherit = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void ResetScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene("Home");
     }
     
 }
