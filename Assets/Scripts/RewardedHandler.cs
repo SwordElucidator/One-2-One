@@ -11,8 +11,10 @@ public class RewardedHandler : MonoBehaviour
     private RewardedAd _rewardedAd;
     
     [CanBeNull] public EventTrigger.TriggerEvent adLoaded;
+    [CanBeNull] public EventTrigger.TriggerEvent adReload;
     [CanBeNull] public EventTrigger.TriggerEvent rewarded;
-    [CanBeNull] public EventTrigger.TriggerEvent closed;
+    [CanBeNull] public EventTrigger.TriggerEvent closedOnCancelled;
+    [CanBeNull] public EventTrigger.TriggerEvent closedOnRewarded;
     public bool autoRecreate = false;
     
     
@@ -21,8 +23,11 @@ public class RewardedHandler : MonoBehaviour
 #elif UNITY_IPHONE
     private const string RewardAdUnitId = "ca-app-pub-2716680030920038/7784489667";
 #else
-    private const string RewardAdUnitId = "";
+    private const string RewardAdUnitId = "ca-app-pub-2716680030920038/7784489667";
 #endif
+
+    private string _adReason = "";
+    private bool _rewarded = false;
     
     
     // Start is called before the first frame update
@@ -84,15 +89,25 @@ public class RewardedHandler : MonoBehaviour
     {
         print("HandleRewardedAdClosed event received");
         var data = new BaseEventData(EventSystem.current);
-        closed?.Invoke(data);
+        if (_rewarded)
+        {
+            closedOnRewarded?.Invoke(data);
+        }
+        else
+        {
+            closedOnCancelled?.Invoke(data);
+        }
+        
         if (autoRecreate)
         {
+            adReload?.Invoke(data);
             CreateAd();
         }
     }
 
     private void HandleUserEarnedReward(object sender, Reward args)
     {
+        _rewarded = true;
         string type = args.Type;
         double amount = args.Amount;
         print(
@@ -102,10 +117,18 @@ public class RewardedHandler : MonoBehaviour
         rewarded?.Invoke(data);
     }
 
-    public void WatchAd()
+    public void WatchAd(string reason)
     {
-        if (_rewardedAd.IsLoaded()) {
+        if (_rewardedAd.IsLoaded())
+        {
+            _adReason = reason;
+            _rewarded = false;
             _rewardedAd.Show();
         }
+    }
+
+    public string GetAdReason()
+    {
+        return _adReason;
     }
 }
