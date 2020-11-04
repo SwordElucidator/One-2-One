@@ -1200,7 +1200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &204669041
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1930,10 +1930,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1547793213}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1, y: 0.65}
-  m_AnchorMax: {x: 0.4, y: 0.9}
+  m_AnchorMin: {x: 0.1, y: 0.15}
+  m_AnchorMax: {x: 0.4, y: 0.4}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1970,7 +1970,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: wait time
+  m_Text: people are ahead
 --- !u!222 &351032227
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4212,7 +4212,7 @@ MonoBehaviour:
   billObj: {fileID: 913344111}
   billsScrollContentTransform: {fileID: 1350575724}
   billsItemObj: {fileID: 6540783107130670435, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
-  billSpeedQueueCountText: {fileID: 2015559469}
+  billSpeedQueuePeopleText: {fileID: 2015559469}
   billSpeedFinishObj: {fileID: 1491039939}
   billSpeedFinishTitleText: {fileID: 1671844189}
 --- !u!1 &830801950
@@ -6387,7 +6387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.36078432, g: 0.3882353, b: 0.41960785, a: 0.5019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8726,8 +8726,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 351032225}
   - {fileID: 2015559468}
+  - {fileID: 351032225}
   - {fileID: 913114814}
   - {fileID: 204669041}
   m_Father: {fileID: 1080087313}
@@ -10978,10 +10978,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1547793213}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1, y: 0.15}
-  m_AnchorMax: {x: 0.6, y: 0.6}
+  m_AnchorMin: {x: 0.1, y: 0.45}
+  m_AnchorMax: {x: 0.6, y: 0.9}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11018,7 +11018,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ???:??:??
+  m_Text: ????????
 --- !u!222 &2015559470
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11802,6 +11802,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1350575724}
     m_Modifications:
+    - target: {fileID: 6540783106518875524, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540783106518875524, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 6540783107130670435, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
       propertyPath: m_Name
       value: Item
@@ -11871,6 +11879,14 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6540783107130670436, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540783107130670436, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540783107130670436, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
@@ -11885,14 +11901,6 @@ PrefabInstance:
     - target: {fileID: 6540783107130670436, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6540783107130670436, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6540783107130670436, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}

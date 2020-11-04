@@ -11,10 +11,10 @@ public static class Player
 
     public static void OnWelcomeStart()
     {
-        UserData.Instance().coin += Config.daySignCoin;
+        UserData.Instance().coin += Config.DaySignCoin;
         UserData.Instance().lastLogin = Utils.GetTimeStamp(DateTime.Now);
         UserData.Instance().Save();
-        AddBill(Config.daySignCoin);
+        AddBill(Config.DaySignCoin);
     }
 
     public static void SaveUserName(String name)

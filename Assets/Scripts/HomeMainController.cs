@@ -31,7 +31,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     public GameObject billObj;
     public Transform billsScrollContentTransform;
     public GameObject billsItemObj;
-    public Text billSpeedQueueCountText;
+    public Text billSpeedQueuePeopleText;
     public GameObject billSpeedFinishObj;
     public Text billSpeedFinishTitleText;
 
@@ -64,11 +64,11 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         mainCoinText.text = UserData.Instance().coin.ToString();
         mainScoreText.text = UserData.Instance().bestScore.ToString();
         mainChampionText.text = UserData.Instance().championCount.ToString();
-        bool needMonty = UserData.Instance().coin < Config.multiNeedCoin;
-        mainMultiNeedText.text = (needMonty ? Config.multiNeedMoney : Config.multiNeedCoin).ToString();
+        bool needMonty = UserData.Instance().coin < Config.MultiNeedCoin;
+        mainMultiNeedText.text = (needMonty ? Config.MultiNeedMoney : Config.MultiNeedCoin).ToString();
         mainMultiNeedImageMoney.gameObject.SetActive(needMonty);
         mainMultiNeedImageCoin.gameObject.SetActive(!needMonty);
-        
+
         // TODO test
         // Bill b1 = Bill.Create(Utils.GetTimeStamp(DateTime.Now), 10, Config.GetUnit());
         // UserData.Instance().bills.Add(b1);
@@ -86,7 +86,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     {
         bool show = Utils.IsSameDay(DateTime.Now, UserData.Instance().lastLogin); // true;
         welcomeObj.SetActive(show);
-        welcomeGoldText.text = Config.daySignCoin.ToString();
+        welcomeGoldText.text = Config.DaySignCoin.ToString();
     }
 
     public void OnWelcomeHidePress()
@@ -142,17 +142,34 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     {
         billObj.SetActive(true);
         billSpeedFinishObj.SetActive(false);
+        // bills
         List<Bill> bills = UserData.Instance().bills;
-        for (int i = 0; i < bills.Count; i++)
+        for (var i = 0; i < bills.Count; i++)
         {
             Bill b = bills[i];
-            Debug.Log("bill[" + i + "]--->" + JsonUtility.ToJson(b));
-            // Text[] texts = billsItemObj.GetComponents<Text>();
-            // texts[0].text = b.data.ToString();
-            // texts[1].text = b.change.ToString(CultureInfo.InvariantCulture);
-            // texts[2].text = b.unit;
-            Instantiate(billsItemObj, billsScrollContentTransform);
+            // Debug.Log("bill[" + i + "]--->" + JsonUtility.ToJson(b));
+            var billsItem = Instantiate(billsItemObj, billsScrollContentTransform);
+            // transform
+            // billsItem.transform.SetParent(billsScrollContentTransform);
+            var reactTransform = billsItem.GetComponent<RectTransform>();
+            var rect = reactTransform.rect;
+            billsItem.transform.position -= Vector3.up * (rect.height - rect.position.y) * i;
+            // data
+            var dateTime = Utils.GetDateTime(b.data);
+            billsItem.transform.Find("Date").GetComponent<Text>().text = dateTime.Month + "/" + dateTime.Day;
+            var changeColor = new Color(0.81f, 0f, 0.1f, 1f);
+            var changeText = b.change.ToString(CultureInfo.InvariantCulture);
+            if (b.change >= 0)
+            {
+                changeColor = new Color(0.29f, 0.56f, 0.88f, 1f);
+                changeText = "+" + changeText;
+            }
+            billsItem.transform.Find("Change").GetComponent<Text>().color = changeColor;
+            billsItem.transform.Find("Change").GetComponent<Text>().text = changeText;
+            billsItem.transform.Find("Unit").GetComponent<Text>().text = b.unit;
         }
+        // speedUp
+        billSpeedQueuePeopleText.text = "12232141"; // TODO
     }
 
     public void OnBillHidePress()
@@ -172,7 +189,10 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     public void BillSpeedUpFinish()
     {
-        // TODO finishAlert
+        billSpeedFinishObj.SetActive(true);
+        billSpeedFinishTitleText.text =
+            "You have surpassed  <color=\"#F8C11C\">" + 2312321 + // TODO
+            "</color> people in line Keep on logging and earning! Cash out at the same time!";
     }
 
     public void OnBillSpeedUpFinishHidePress()
