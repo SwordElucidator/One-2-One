@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +29,8 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     // bill
     public GameObject billObj;
-    public ScrollRect billListScroll;
+    public Transform billsScrollContentTransform;
+    public GameObject billsItemObj;
     public Text billSpeedQueueCountText;
     public GameObject billSpeedFinishObj;
     public Text billSpeedFinishTitleText;
@@ -66,6 +68,15 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         mainMultiNeedText.text = (needMonty ? Config.multiNeedMoney : Config.multiNeedCoin).ToString();
         mainMultiNeedImageMoney.gameObject.SetActive(needMonty);
         mainMultiNeedImageCoin.gameObject.SetActive(!needMonty);
+        
+        // TODO test
+        // Bill b1 = Bill.Create(Utils.GetTimeStamp(DateTime.Now), 10, Config.GetUnit());
+        // UserData.Instance().bills.Add(b1);
+        // Bill b2 = Bill.Create(Utils.GetTimeStamp(DateTime.Now), -10, Config.GetUnit());
+        // UserData.Instance().bills.Add(b2);
+        // Bill b3 = Bill.Create(Utils.GetTimeStamp(DateTime.Now), 1000, Config.GetUnit());
+        // UserData.Instance().bills.Add(b3);
+        // UserData.Instance().Save();
     }
 
     /**
@@ -131,7 +142,17 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     {
         billObj.SetActive(true);
         billSpeedFinishObj.SetActive(false);
-        // TODO init
+        List<Bill> bills = UserData.Instance().bills;
+        for (int i = 0; i < bills.Count; i++)
+        {
+            Bill b = bills[i];
+            Debug.Log("bill[" + i + "]--->" + JsonUtility.ToJson(b));
+            // Text[] texts = billsItemObj.GetComponents<Text>();
+            // texts[0].text = b.data.ToString();
+            // texts[1].text = b.change.ToString(CultureInfo.InvariantCulture);
+            // texts[2].text = b.unit;
+            Instantiate(billsItemObj, billsScrollContentTransform);
+        }
     }
 
     public void OnBillHidePress()

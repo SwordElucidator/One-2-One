@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -32,7 +31,7 @@ public static class Player
     public static void AddBill(float change)
     {
         Bill b = Bill.Create(Utils.GetTimeStamp(DateTime.Now), change, Config.GetUnit());
-        _ = UserData.Instance().bills.Append(b);
+        UserData.Instance().bills.Add(b);
         UserData.Instance().Save();
     }
 }
