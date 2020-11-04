@@ -1,9 +1,30 @@
-public class Player
-{
+using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
-    public void a()
+public static class Player
+{
+    public static void EventUserDataRefresh(GameObject target)
     {
-       // UserData.Bill b = UserData.Bill.Create(1, 1, "");
-       // b.change = 1;
+        ExecuteEvents.Execute<IPlayerMessageTarget>(target, null, (x,y)=>x.OnUserDataChange());
     }
+    
+    public static void OnWelcomeStart()
+    {
+        UserData.Instance().coin += Config.daySignCoin;
+        UserData.Instance().lastLogin = Utils.GetTimeStamp(DateTime.Now);
+        UserData.Instance().Save();
+    }
+
+    public static void SaveUserName()
+    {
+        // TODO
+    }
+    
+    
+}
+
+public interface IPlayerMessageTarget : IEventSystemHandler
+{
+    void OnUserDataChange();
 }

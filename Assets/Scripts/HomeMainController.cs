@@ -1,21 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Globalization;
+using UnityEngine;
 using UnityEngine.UI;
 
-// public interface IHomeMainMessageTarget : IEventSystemHandler
-// {
-//     // 可通过消息系统调用的函数
-//     void OnMoneyOrCoinChange(BaseEventData data);
-//     void OnScoreOrChampionChange(BaseEventData data);
-// }
-
-// public class Datass : BaseEventData
-// {
-//     public Datass(EventSystem eventSystem) : base(eventSystem)
-//     {
-//     }
-// }
-
-public class HomeMainController : MonoBehaviour // , IHomeMainMessageTarget
+public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHomeMainMessageTarget
 {
     // main
     public Text mainMoneyText;
@@ -37,7 +24,7 @@ public class HomeMainController : MonoBehaviour // , IHomeMainMessageTarget
 
     // agreement
     public GameObject agreement; // TODO
-    
+
     // bill
     public GameObject billObj;
     public ScrollRect billListScroll;
@@ -54,14 +41,14 @@ public class HomeMainController : MonoBehaviour // , IHomeMainMessageTarget
     {
     }
 
-    // public static void OnMemoryChange(GameObject target,)
-    // {
-    //     ExecuteEvents.Execute<IHomeMainMessageTarget>(target, new Datass(EventSystem.current), (x,y)=>x.OnMoneyOrCoinChange(y));
-    // }
-
     private void Init()
     {
         CheckWelcomeVisible();
+        RefreshMainView();
+    }
+
+    public void OnUserDataChange()
+    {
         RefreshMainView();
     }
 
@@ -70,38 +57,32 @@ public class HomeMainController : MonoBehaviour // , IHomeMainMessageTarget
      */
     private void RefreshMainView()
     {
-        mainMoneyText.text = "99.99"; // TODO perGet
-        mainCoinText.text = "2333"; // TODO petGet
-        mainScoreText.text = "5600000"; // TODO petGet
-        mainChampionText.text = "111"; // TODO petGet
+        mainMoneyText.text = UserData.Instance().money.ToString(CultureInfo.CurrentCulture);
+        mainCoinText.text = UserData.Instance().coin.ToString();
+        mainScoreText.text = UserData.Instance().bestScore.ToString();
+        mainChampionText.text = UserData.Instance().championCount.ToString();
         const bool needMonty = true; // TODO check
         mainMultiNeedText.text = "12"; // TODO check
         mainMultiNeedImageMoney.gameObject.SetActive(needMonty);
         mainMultiNeedImageCoin.gameObject.SetActive(!needMonty);
     }
 
-    // public void OnMoneyOrCoinChange(BaseEventData data)
-    // {
-    // }
-    //
-    // public void OnScoreOrChampionChange(BaseEventData data)
-    // {
-    // }
-
     /**
      ***************************************** Welcome ******************************************* 
      */
     private void CheckWelcomeVisible()
     {
-        const bool show = true; // TODO perGet
+        // bool show = Utils.IsSameDay(DateTime.Now, UserData.Instance().lastLogin);
+        bool show = true;
         welcomeObj.SetActive(show);
-        welcomeGoldText.text = "100"; // TODO perGet
+        welcomeGoldText.text = Config.daySignCoin.ToString();
     }
 
     public void OnWelcomeHidePress()
     {
         welcomeObj.SetActive(false);
-        // TODO perSet
+        Player.OnWelcomeStart();
+        Player.EventUserDataRefresh(gameObject);
     }
 
     /**
@@ -168,12 +149,12 @@ public class HomeMainController : MonoBehaviour // , IHomeMainMessageTarget
     {
         // TODO ad
     }
-    
+
     public void BillSpeedUpFinish()
     {
         // TODO finishAlert
     }
-    
+
     public void OnBillSpeedUpFinishHidePress()
     {
         billSpeedFinishObj.SetActive(false);

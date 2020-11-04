@@ -8,7 +8,7 @@ public class UserData
     public static UserData Instance()
     {
         if (_instance != null) return _instance;
-        _instance = GetUserData();
+        _instance = Get();
         return _instance;
     }
 
@@ -36,13 +36,13 @@ public class UserData
     //     this.soundEnable = soundEnable;
     // }
 
-    private static UserData GetUserData()
+    private static UserData Get()
     {
         String json = PlayerPrefs.GetString(KeyUserData);
         return string.IsNullOrEmpty(json) ? new UserData() : JsonUtility.FromJson<UserData>(json);
     }
 
-    public void SaveUserData()
+    public void Save()
     {
         String json = JsonUtility.ToJson(this);
         PlayerPrefs.SetString(KeyUserData, json);
