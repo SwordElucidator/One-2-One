@@ -125,7 +125,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     public void OnAgreementHidePress()
     {
-        agreement.SetActive(true);
+        agreement.SetActive(false);
     }
 
     /**
@@ -177,7 +177,6 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     public void OnBillHidePress()
     {
-        // TODO style修改
         billObj.SetActive(false);
     }
 
