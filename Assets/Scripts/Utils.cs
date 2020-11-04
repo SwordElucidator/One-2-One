@@ -20,12 +20,12 @@ public static class Utils
         return dtStart.Add(toNow);
     }
 
-    public static bool IsSameDay(long t1, long t2)
-    {
-        DateTime d1 = GetDateTime(t1);
-        DateTime d2 = GetDateTime(t2);
-        return (d1.Year == d2.Year) && (d1.DayOfYear == d2.DayOfYear);
-    }
+    // public static bool IsSameDay(long t1, long t2)
+    // {
+    //     DateTime d1 = GetDateTime(t1);
+    //     DateTime d2 = GetDateTime(t2);
+    //     return (d1.Year == d2.Year) && (d1.DayOfYear == d2.DayOfYear);
+    // }
 
     public static bool IsSameDay(DateTime d1, long t2)
     {
@@ -36,7 +36,7 @@ public static class Utils
     public static string ListToJson(object list)
     {
         DataContractJsonSerializer json = new DataContractJsonSerializer(list.GetType());
-        string finJson = "";
+        string finJson;
         //序列化
         using (MemoryStream stream = new MemoryStream())
         {
@@ -53,8 +53,7 @@ public static class Utils
         List<T> list = new List<T>();
         DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(list.GetType());
         byte[] bytes = Encoding.UTF8.GetBytes(json);
-        MemoryStream stream = new MemoryStream(bytes);
-        stream.Position = 0;
+        MemoryStream stream = new MemoryStream(bytes) {Position = 0};
         return (List<T>) jsonSerializer.ReadObject(stream);
     }
 }
