@@ -20,7 +20,7 @@ public class UserData
     public String userName = "";
     public bool cashOutSet = false;
     public bool soundEnable = true;
-    public Bill[] bills;
+    public Bill[] bills = new Bill[0];
 
     private const String KeyUserData = "1+1_user_data";
 
@@ -52,10 +52,10 @@ public class UserData
 public class Bill
 {
     public long data;
-    public int change;
+    public float change;
     public String unit;
 
-    public static Bill Create(long pData, int pChange, String pUnit)
+    public static Bill Create(long pData, float pChange, String pUnit)
     {
         return new Bill {data = pData, change = pChange, unit = pUnit};
     }

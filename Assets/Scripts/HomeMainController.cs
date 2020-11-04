@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -61,8 +62,8 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         mainCoinText.text = UserData.Instance().coin.ToString();
         mainScoreText.text = UserData.Instance().bestScore.ToString();
         mainChampionText.text = UserData.Instance().championCount.ToString();
-        const bool needMonty = true; // TODO check
-        mainMultiNeedText.text = "12"; // TODO check
+        bool needMonty = UserData.Instance().coin < Config.multiNeedCoin;
+        mainMultiNeedText.text = (needMonty ? Config.multiNeedMoney : Config.multiNeedCoin).ToString();
         mainMultiNeedImageMoney.gameObject.SetActive(needMonty);
         mainMultiNeedImageCoin.gameObject.SetActive(!needMonty);
     }
@@ -72,8 +73,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
      */
     private void CheckWelcomeVisible()
     {
-        // bool show = Utils.IsSameDay(DateTime.Now, UserData.Instance().lastLogin);
-        bool show = true;
+        bool show = Utils.IsSameDay(DateTime.Now, UserData.Instance().lastLogin); // true;
         welcomeObj.SetActive(show);
         welcomeGoldText.text = Config.daySignCoin.ToString();
     }
@@ -92,7 +92,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     {
         settingsObj.SetActive(true);
         // settingsAvatarImage.texture = ???; // TODO perGet
-        settingsNameInput.text = "你猜"; // TODO perGet
+        settingsNameInput.text = UserData.Instance().userName;
     }
 
     public void OnSettingsHidePress()
@@ -102,13 +102,12 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     public void OnSettingsAvatarPress()
     {
-        // TODO selectAvatar
+        Player.SelectAvatar();
     }
 
     public void OnSettingsNameSavePress()
     {
-        // Debug.Log("--->" + settingsNameInput.text);
-        // TODO saveName
+        Player.SaveUserName(settingsNameInput.text);
         OnSettingsHidePress();
     }
 
