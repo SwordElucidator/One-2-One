@@ -93,7 +93,4 @@ public class Main : MonoBehaviour
         Debug.Log("OnApplicationQuit");
     }
 
-    private void OnGUI()
-    {
-    }
 }
