@@ -31,6 +31,8 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     public GameObject billObj;
     public Transform billsScrollContentTransform;
     public GameObject billsItemObj;
+    public Button billCashOutBtn;
+    public Button billSpeedUpBtn;
     public Text billSpeedQueuePeopleText;
     public GameObject billSpeedFinishObj;
     public Text billSpeedFinishTitleText;
@@ -159,18 +161,30 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
             billsItem.transform.Find("Change").GetComponent<Text>().text = changeText;
             billsItem.transform.Find("Unit").GetComponent<Text>().text = b.unit;
         }
-        // speedUp
-        billSpeedQueuePeopleText.text = "12232141"; // TODO
+        RefreshBillStatus();
+    }
+
+    private void RefreshBillStatus()
+    {
+        var set = UserData.Instance().cashOutSet;
+        billCashOutBtn.gameObject.SetActive(!set);
+        billSpeedUpBtn.gameObject.SetActive(set);
+        if (set)
+        {
+            billSpeedQueuePeopleText.text = "12232141"; // TODO 排队人数
+        }
     }
 
     public void OnBillHidePress()
     {
+        // TODO style修改
         billObj.SetActive(false);
     }
 
     public void BillCashOutOver()
     {
-        // TODO refreshView
+        // TODO cashOut页面跳回来之后 refreshView
+        RefreshBillStatus();
     }
 
     public void OnBillSpeedUpPress()
@@ -222,6 +236,6 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
      */
     public void OnGameMultiPress()
     {
-        // TODO check + alert + nav
+        // TODO check + alert(style修改) + nav
     }
 }
