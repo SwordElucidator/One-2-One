@@ -68,15 +68,6 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         mainMultiNeedText.text = (needMonty ? Config.MultiNeedMoney : Config.MultiNeedCoin).ToString();
         mainMultiNeedImageMoney.gameObject.SetActive(needMonty);
         mainMultiNeedImageCoin.gameObject.SetActive(!needMonty);
-
-        // TODO test
-        // Bill b1 = Bill.Create(Utils.GetTimeStamp(DateTime.Now), 10, Config.GetUnit());
-        // UserData.Instance().bills.Add(b1);
-        // Bill b2 = Bill.Create(Utils.GetTimeStamp(DateTime.Now), -10, Config.GetUnit());
-        // UserData.Instance().bills.Add(b2);
-        // Bill b3 = Bill.Create(Utils.GetTimeStamp(DateTime.Now), 1000, Config.GetUnit());
-        // UserData.Instance().bills.Add(b3);
-        // UserData.Instance().Save();
     }
 
     /**
@@ -149,11 +140,11 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
             Bill b = bills[i];
             // Debug.Log("bill[" + i + "]--->" + JsonUtility.ToJson(b));
             var billsItem = Instantiate(billsItemObj, billsScrollContentTransform);
-            // transform
+            // transform(content加了VerticalLayout和fitter就没必要了，还能自动算高度)
             // billsItem.transform.SetParent(billsScrollContentTransform);
-            var reactTransform = billsItem.GetComponent<RectTransform>();
-            var rect = reactTransform.rect;
-            billsItem.transform.position -= Vector3.up * (rect.height - rect.position.y) * i;
+            // var reactTransform = billsItem.GetComponent<RectTransform>();
+            // var rect = reactTransform.rect;
+            // billsItem.transform.position -= Vector3.up * (rect.height - rect.position.y) * i;
             // data
             var dateTime = Utils.GetDateTime(b.data);
             billsItem.transform.Find("Date").GetComponent<Text>().text = dateTime.Month + "/" + dateTime.Day;
