@@ -8,7 +8,7 @@ public static class Utils
 {
     public static long GetTimeStamp(DateTime dateTime)
     {
-        TimeSpan ts = dateTime - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        TimeSpan ts = dateTime.ToLocalTime() - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime();
         return Convert.ToInt64(ts.TotalSeconds);
     }
 
@@ -29,8 +29,8 @@ public static class Utils
 
     public static bool IsSameDay(DateTime d1, long t2)
     {
-        DateTime d2 = GetDateTime(t2);
-        return (d1.Year == d2.Year) && (d1.DayOfYear == d2.DayOfYear);
+        DateTime d2 = GetDateTime(t2).ToLocalTime();
+        return (d1.ToLocalTime().Year == d2.Year) && (d1.ToLocalTime().DayOfYear == d2.DayOfYear);
     }
 
     public static string ListToJson(object list)

@@ -48,9 +48,9 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         Init();
     }
 
-    void Update()
-    {
-    }
+    // void Update()
+    // {
+    // }
 
     private void Init()
     {
@@ -83,7 +83,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
      */
     private void CheckWelcomeVisible()
     {
-        bool show = Utils.IsSameDay(DateTime.Now, UserData.Instance().lastLogin); // true;
+        bool show = !Utils.IsSameDay(DateTime.Now, UserData.Instance().lastLogin); // true;
         welcomeObj.SetActive(show);
         welcomeGoldText.text = Config.DaySignCoin.ToString();
     }
@@ -142,7 +142,8 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         billObj.SetActive(true);
         billSpeedFinishObj.SetActive(false);
         // bills
-        List<Bill> bills = UserData.Instance().bills;
+        var bills = UserData.Instance().bills;
+        bills.Reverse();
         foreach (var b in bills)
         {
             // Debug.Log("bill[" + i + "]--->" + JsonUtility.ToJson(b));
@@ -225,7 +226,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     {
         if (String.IsNullOrEmpty(cashOutEmailInput.text))
         {
-            return;
+            return; // TODO toast提示
         }
 
         Player.SetCashOut();
