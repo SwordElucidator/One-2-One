@@ -25,7 +25,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     public InputField settingsNameInput;
 
     // agreement
-    public GameObject agreement; // TODO
+    public GameObject agreement;
 
     // bill
     public GameObject billObj;
@@ -36,6 +36,12 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     public Text billSpeedQueuePeopleText;
     public GameObject billSpeedFinishObj;
     public Text billSpeedFinishTitleText;
+
+    // cashOut
+    public GameObject cashOutObj;
+    public Text cashOutAmountText;
+    public InputField cashOutEmailInput;
+    public Text cashOutCashOutText;
 
     void Start()
     {
@@ -156,10 +162,12 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
                 changeColor = new Color(0.29f, 0.56f, 0.88f, 1f);
                 changeText = "+" + changeText;
             }
+
             billsItem.transform.Find("Change").GetComponent<Text>().color = changeColor;
             billsItem.transform.Find("Change").GetComponent<Text>().text = changeText;
             billsItem.transform.Find("Unit").GetComponent<Text>().text = b.unit;
         }
+
         RefreshBillStatus();
     }
 
@@ -177,12 +185,6 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     public void OnBillHidePress()
     {
         billObj.SetActive(false);
-    }
-
-    public void BillCashOutOver()
-    {
-        // TODO cashOut页面跳回来之后 refreshView
-        RefreshBillStatus();
     }
 
     public void OnBillSpeedUpPress()
@@ -208,17 +210,27 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
      */
     public void OnCashOutShowPress()
     {
-        // TODO nav
+        cashOutObj.SetActive(true);
+        var amount = UserData.Instance().money.ToString(CultureInfo.InvariantCulture);
+        cashOutAmountText.text = "$" + amount + " <size=10>USD</size>";
+        cashOutCashOutText.text = "$" + amount;
     }
 
     public void OnCashOutHidePress()
     {
-        // TODO nav
+        cashOutObj.SetActive(false);
     }
 
     public void OnCashOutActionPress()
     {
-        // TODO nav
+        if (String.IsNullOrEmpty(cashOutEmailInput.text))
+        {
+            return;
+        }
+
+        Player.SetCashOut();
+        OnCashOutHidePress();
+        RefreshBillStatus();
     }
 
     /**
