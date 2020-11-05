@@ -42,7 +42,7 @@ public class Main : MonoBehaviour
     static void OnRuntimeMethodLoad()
     {
         Debug.Log("第一个场景加载后3");
-        MediationTestSuite.Show();
+        // MediationTestSuite.Show();
     }
 
     private void Reset()
