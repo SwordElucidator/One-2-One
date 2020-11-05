@@ -43,7 +43,7 @@ public class UserData
         String json = PlayerPrefs.GetString(KeyUserData);
         // Debug.Log("Get-UserData--->" + json);
         String bill = PlayerPrefs.GetString(KeyUserDataBill);
-        List<Bill> bills = Utils.JsonToList<Bill>(bill);
+        List<Bill> bills = string.IsNullOrEmpty(bill) ? new List<Bill>() : Utils.JsonToList<Bill>(bill);
         // Debug.Log("Get-Bills--->" + Utils.ListToJson(bills));
         UserData userData  = string.IsNullOrEmpty(json) ? new UserData() : JsonUtility.FromJson<UserData>(json);
         userData.bills = bills;
