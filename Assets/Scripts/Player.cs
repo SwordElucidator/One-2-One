@@ -34,6 +34,13 @@ public static class Player
         UserData.Instance().bills.Add(b);
         UserData.Instance().Save();
     }
+    
+    public static void SetCashOut()
+    {
+        UserData.Instance().cashOutSet = true;
+        UserData.Instance().Save();
+    }
+
 }
 
 public interface IPlayerMessageTarget : IEventSystemHandler
