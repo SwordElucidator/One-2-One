@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: corner_in_6
+  m_Name: cooer_in_8_b
   m_Shader: {fileID: 4800000, guid: d3beb88e61f88ca4393acdefb005fa70, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -82,7 +82,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _halfSize: {r: 131.2828, g: 30.607643, b: 0, a: 0}
-    - _r: {r: 6, g: 6, b: 6, a: 6}
-    - _rect2props: {r: 0.000015258789, g: 0, b: 110.2312, a: 110.2312}
+    - _halfSize: {r: 73.14327, g: 28.340424, b: 0, a: 0}
+    - _r: {r: 8, g: 8, b: 0, a: 0}
+    - _rect2props: {r: 0.0000076293945, g: -4.0000076, b: 68.93139, a: 68.93139}
   m_BuildTextureStacks: []
