@@ -20,7 +20,7 @@ public class UserData
     public long lastLogin = 0;
     public String userName = "";
     public bool cashOutSet = false;
-    public bool soundEnable = true;
+    // public bool soundEnable = true;
     public List<Bill> bills = new List<Bill>();
 
     private const String KeyUserData = "1+1_user_data";

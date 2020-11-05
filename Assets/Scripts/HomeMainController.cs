@@ -137,9 +137,8 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         billSpeedFinishObj.SetActive(false);
         // bills
         List<Bill> bills = UserData.Instance().bills;
-        for (var i = 0; i < bills.Count; i++)
+        foreach (var b in bills)
         {
-            Bill b = bills[i];
             // Debug.Log("bill[" + i + "]--->" + JsonUtility.ToJson(b));
             var billsItem = Instantiate(billsItemObj, billsScrollContentTransform);
             // transform(content加了VerticalLayout和fitter就没必要了，还能自动算高度)
