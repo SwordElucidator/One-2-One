@@ -33,6 +33,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     public GameObject billsItemObj;
     public Button billCashOutBtn;
     public Button billSpeedUpBtn;
+    public Transform billSpeedUpTrans;
     public Text billSpeedQueuePeopleText;
     public GameObject billSpeedFinishObj;
     public Text billSpeedFinishTitleText;
@@ -192,6 +193,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         billSpeedUpBtn.gameObject.SetActive(set);
         if (set)
         {
+            billSpeedUpTrans.gameObject.SetActive(Player.CanSpeedUp());
             billSpeedQueuePeopleText.text = UserData.Instance().waiting.waitingNum.ToString();
         }
     }
@@ -203,13 +205,14 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     public void OnBillSpeedUpPress()
     {
-        // TODO ad + can
         var can = Player.CanSpeedUp();
+        if (!can) return;
+        // TODO ad
         var up = Player.SpeedUp();
         BillSpeedUpFinish(up);
     }
 
-    public void BillSpeedUpFinish(int up)
+    private void BillSpeedUpFinish(int up)
     {
         billSpeedFinishObj.SetActive(true);
         billSpeedFinishTitleText.text =
@@ -219,6 +222,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     public void OnBillSpeedUpFinishHidePress()
     {
+        RefreshBillStatus();
         billSpeedFinishObj.SetActive(false);
     }
 
