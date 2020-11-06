@@ -46,7 +46,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     // alertRefuse
     public GameObject alertRefuse;
     public Text alertRefuseNeedText;
-    
+
     // alertStart
     public GameObject alertStart;
     public Text alertStartNeedText;
@@ -268,6 +268,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
             alertRefuseNeedText.text = Config.MultiNeedMoney.ToString();
             return;
         }
+
         // access
         alertStart.SetActive(true);
         alertStartNeedText.text = (needMonty ? Config.MultiNeedMoney : Config.MultiNeedCoin).ToString();
@@ -277,12 +278,12 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         alertStartNo1Text.text = Config.MultiNo1Award.ToString();
         alertStartNo2Text.text = Config.MultiNo27Award.ToString();
     }
-    
+
     public void OnGameMultiAlertRefuseActionPress()
     {
         alertRefuse.SetActive(false);
     }
-    
+
     public void OnGameMultiAlertStartActionPress()
     {
         alertStart.SetActive(false);

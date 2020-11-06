@@ -25,7 +25,7 @@ public static class Player
 
     public static void SelectAvatar()
     {
-        // TODO 选择投降
+        // TODO 选择头像
     }
 
     public static void AddBill(float change)
