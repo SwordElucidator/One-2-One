@@ -33,6 +33,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     public GameObject billsItemObj;
     public Button billCashOutBtn;
     public Button billSpeedUpBtn;
+    public Transform billSpeedUpTrans;
     public Text billSpeedQueuePeopleText;
     public GameObject billSpeedFinishObj;
     public Text billSpeedFinishTitleText;
@@ -46,7 +47,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     // alertRefuse
     public GameObject alertRefuse;
     public Text alertRefuseNeedText;
-    
+
     // alertStart
     public GameObject alertStart;
     public Text alertStartNeedText;
@@ -192,7 +193,8 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         billSpeedUpBtn.gameObject.SetActive(set);
         if (set)
         {
-            billSpeedQueuePeopleText.text = "12232141"; // TODO 排队人数
+            billSpeedUpTrans.gameObject.SetActive(Player.CanSpeedUp());
+            billSpeedQueuePeopleText.text = UserData.Instance().waiting.waitingNum.ToString();
         }
     }
 
@@ -203,19 +205,24 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     public void OnBillSpeedUpPress()
     {
+        var can = Player.CanSpeedUp();
+        if (!can) return;
         // TODO ad
+        var up = Player.SpeedUp();
+        BillSpeedUpFinish(up);
     }
 
-    public void BillSpeedUpFinish()
+    private void BillSpeedUpFinish(int up)
     {
         billSpeedFinishObj.SetActive(true);
         billSpeedFinishTitleText.text =
-            "You have surpassed  <color=\"#F8C11C\">" + 2312321 + // TODO
+            "You have surpassed  <color=\"#F8C11C\">" + up +
             "</color> people in line Keep on logging and earning! Cash out at the same time!";
     }
 
     public void OnBillSpeedUpFinishHidePress()
     {
+        RefreshBillStatus();
         billSpeedFinishObj.SetActive(false);
     }
 
@@ -268,6 +275,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
             alertRefuseNeedText.text = Config.MultiNeedMoney.ToString();
             return;
         }
+
         // access
         alertStart.SetActive(true);
         alertStartNeedText.text = (needMonty ? Config.MultiNeedMoney : Config.MultiNeedCoin).ToString();
@@ -277,12 +285,12 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         alertStartNo1Text.text = Config.MultiNo1Award.ToString();
         alertStartNo2Text.text = Config.MultiNo27Award.ToString();
     }
-    
+
     public void OnGameMultiAlertRefuseActionPress()
     {
         alertRefuse.SetActive(false);
     }
-    
+
     public void OnGameMultiAlertStartActionPress()
     {
         alertStart.SetActive(false);

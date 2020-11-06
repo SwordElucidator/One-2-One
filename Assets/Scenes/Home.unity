@@ -5004,6 +5004,7 @@ MonoBehaviour:
   billsItemObj: {fileID: 6540783107130670435, guid: 098016899b81441f9849c6cfb41d9ceb, type: 3}
   billCashOutBtn: {fileID: 804853237}
   billSpeedUpBtn: {fileID: 1547793215}
+  billSpeedUpTrans: {fileID: 913114814}
   billSpeedQueuePeopleText: {fileID: 2015559469}
   billSpeedFinishObj: {fileID: 1491039939}
   billSpeedFinishTitleText: {fileID: 1671844189}

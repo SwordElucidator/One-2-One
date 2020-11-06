@@ -25,7 +25,7 @@ public static class Player
 
     public static void SelectAvatar()
     {
-        // TODO 选择投降
+        // TODO 选择头像
     }
 
     public static void AddBill(float change)
@@ -41,6 +41,24 @@ public static class Player
         UserData.Instance().Save();
     }
 
+    public static bool CanSpeedUp()
+    {
+        var waiting = UserData.Instance().waiting;
+        var last = Utils.GetDateTime(waiting.lastSpeedUpTime);
+        var now = DateTime.Now;
+        var sameHour = (last.Year == now.Year) && (last.DayOfYear == now.DayOfYear) && (last.Hour == now.Hour);
+        return !sameHour && (waiting.SpeedUp(waiting.waitingNum) >= 0);
+    }
+
+    public static int SpeedUp()
+    {
+        var waiting = UserData.Instance().waiting;
+        var toSpeedUp = waiting.SpeedUp(waiting.waitingNum);
+        waiting.waitingNum -= toSpeedUp;
+        waiting.lastSpeedUpTime = Utils.GetTimeStamp(DateTime.Now);
+        UserData.Instance().Save();
+        return toSpeedUp;
+    }
 }
 
 public interface IPlayerMessageTarget : IEventSystemHandler
