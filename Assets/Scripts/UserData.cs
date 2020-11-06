@@ -90,16 +90,16 @@ public class Bill
 
 public class CashOutWaiting
 {
-    public static readonly int[] WaitingNum = {270000, 330000};
-    public static readonly int WaitingNumMax = 8;
-    public static readonly float SpeedUpConstant = 17.2f;
-    public static readonly int SlowDownSince = 10000;
-    public static readonly float SlowDownConstant = 12.4f;
-    public static readonly int SingleSlowPeriod = 60 * 1000;
+    private static readonly int[] WaitingNum = {270000, 330000};
+    private static readonly int WaitingNumMax = 8;
+    private static readonly float SpeedUpConstant = 17.2f;
+    private static readonly int SlowDownSince = 10000;
+    private static readonly float SlowDownConstant = 12.4f;
+    private static readonly int SingleSlowPeriod = 60 * 1000;
 
     public int waitingNum;
-    public long lastUpdateTime;
     public long lastSpeedUpTime;
+    private long _lastUpdateTime;
 
     public CashOutWaiting()
     {
@@ -108,16 +108,16 @@ public class CashOutWaiting
 
     public void Init()
     {
-        if (lastUpdateTime == 0)
+        if (_lastUpdateTime == 0)
         {
             waitingNum = _getWaitingNum();
-            lastUpdateTime = Utils.GetTimeStamp(DateTime.Now);
+            _lastUpdateTime = Utils.GetTimeStamp(DateTime.Now);
             lastSpeedUpTime = Utils.GetTimeStamp(new DateTime(2020, 11, 1, 0, 0, 0, 0));
         }
         else
         {
-            var results = _slowDown(waitingNum, Utils.GetTimeStamp(DateTime.Now) - lastUpdateTime);
-            lastUpdateTime = (results[0] == waitingNum) ? lastUpdateTime : Utils.GetTimeStamp(DateTime.Now);
+            var results = _slowDown(waitingNum, Utils.GetTimeStamp(DateTime.Now) - _lastUpdateTime);
+            _lastUpdateTime = (results[0] == waitingNum) ? _lastUpdateTime : Utils.GetTimeStamp(DateTime.Now);
             waitingNum = results[0];
         }
     }

@@ -192,7 +192,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         billSpeedUpBtn.gameObject.SetActive(set);
         if (set)
         {
-            billSpeedQueuePeopleText.text = "12232141"; // TODO 排队人数
+            billSpeedQueuePeopleText.text = UserData.Instance().waiting.waitingNum.ToString();
         }
     }
 
@@ -203,14 +203,17 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     public void OnBillSpeedUpPress()
     {
-        // TODO ad
+        // TODO ad + can
+        var can = Player.CanSpeedUp();
+        var up = Player.SpeedUp();
+        BillSpeedUpFinish(up);
     }
 
-    public void BillSpeedUpFinish()
+    public void BillSpeedUpFinish(int up)
     {
         billSpeedFinishObj.SetActive(true);
         billSpeedFinishTitleText.text =
-            "You have surpassed  <color=\"#F8C11C\">" + 2312321 + // TODO
+            "You have surpassed  <color=\"#F8C11C\">" + up +
             "</color> people in line Keep on logging and earning! Cash out at the same time!";
     }
 

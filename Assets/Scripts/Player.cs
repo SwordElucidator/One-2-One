@@ -44,7 +44,7 @@ public static class Player
     public static bool CanSpeedUp()
     {
         var waiting = UserData.Instance().waiting;
-        var last = Utils.GetDateTime(waiting.lastUpdateTime);
+        var last = Utils.GetDateTime(waiting.lastSpeedUpTime);
         var now = DateTime.Now;
         var sameHour = (last.Year == now.Year) && (last.DayOfYear == now.DayOfYear) && (last.Hour == now.Hour);
         return !sameHour && (waiting.SpeedUp(waiting.waitingNum) >= 0);
