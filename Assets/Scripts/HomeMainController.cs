@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHomeMainMessageTarget
@@ -42,6 +42,19 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     public Text cashOutAmountText;
     public InputField cashOutEmailInput;
     public Text cashOutCashOutText;
+
+    // alertRefuse
+    public GameObject alertRefuse;
+    public Text alertRefuseNeedText;
+    
+    // alertStart
+    public GameObject alertStart;
+    public Text alertStartNeedText;
+    public Image alertStartNeedCoinImg;
+    public Image alertStartNeedMoneyImg;
+    public Text alertStartPoolText;
+    public Text alertStartNo1Text;
+    public Text alertStartNo2Text;
 
     void Start()
     {
@@ -239,7 +252,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
      */
     public void OnGameSinglePress()
     {
-        // TODO nav
+        SceneManager.LoadScene("Single");
     }
 
     /**
@@ -247,6 +260,32 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
      */
     public void OnGameMultiPress()
     {
-        // TODO check + alert(style修改) + nav
+        var needMonty = UserData.Instance().coin < Config.MultiNeedCoin;
+        if (needMonty && UserData.Instance().money < Config.MultiNeedMoney)
+        {
+            // refuse
+            alertRefuse.SetActive(true);
+            alertRefuseNeedText.text = Config.MultiNeedMoney.ToString();
+            return;
+        }
+        // access
+        alertStart.SetActive(true);
+        alertStartNeedText.text = (needMonty ? Config.MultiNeedMoney : Config.MultiNeedCoin).ToString();
+        alertStartNeedMoneyImg.gameObject.SetActive(needMonty);
+        alertStartNeedCoinImg.gameObject.SetActive(!needMonty);
+        alertStartPoolText.text = (Config.MultiNeedPeoples * Config.MultiNeedMoney).ToString();
+        alertStartNo1Text.text = Config.MultiNo1Award.ToString();
+        alertStartNo2Text.text = Config.MultiNo27Award.ToString();
+    }
+    
+    public void OnGameMultiAlertRefuseActionPress()
+    {
+        alertRefuse.SetActive(false);
+    }
+    
+    public void OnGameMultiAlertStartActionPress()
+    {
+        alertStart.SetActive(false);
+        SceneManager.LoadScene("Multi");
     }
 }
