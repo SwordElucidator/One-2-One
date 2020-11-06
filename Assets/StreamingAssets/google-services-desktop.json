@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "322110885034",
+    "firebase_url": "https://p-1-b1fe5.firebaseio.com",
+    "project_id": "p-1-b1fe5",
+    "storage_bucket": "p-1-b1fe5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322110885034:android:e154b7d939ad69233994d3",
+        "android_client_info": {
+          "package_name": "com.voyageur.onepone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322110885034-otn8q5d4o8d0idk3c1a5t279r2bcs07r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNjFD21NVw4h5DgEbXty9d7dZapewx0xs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322110885034-otn8q5d4o8d0idk3c1a5t279r2bcs07r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "322110885034-2qpf13oua40ple06kag4f1osonrtfuqg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.voyageur.onepone"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

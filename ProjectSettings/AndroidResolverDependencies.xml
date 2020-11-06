@@ -49,7 +49,7 @@
     <file>Assets/Plugins/Android/androidx.media2.media2-player-1.0.1.aar</file>
     <file>Assets/Plugins/Android/androidx.media2.media2-session-1.0.1.aar</file>
     <file>Assets/Plugins/Android/androidx.media2.media2-widget-1.0.1.aar</file>
-<!--    <file>Assets/Plugins/Android/androidx.multidex.multidex-2.0.1.aar</file>-->
+    <file>Assets/Plugins/Android/androidx.multidex.multidex-2.0.1.aar</file>
     <file>Assets/Plugins/Android/androidx.palette.palette-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.print.print-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.recyclerview.recyclerview-1.1.0.aar</file>
@@ -129,7 +129,7 @@
     <setting name="packageDir" value="Assets/Plugins/Android" />
     <setting name="patchAndroidManifest" value="True" />
     <setting name="patchMainTemplateGradle" value="True" />
-    <setting name="projectExportEnabled" value="True" />
+    <setting name="projectExportEnabled" value="False" />
     <setting name="useJetifier" value="True" />
   </settings>
 </dependencies>
