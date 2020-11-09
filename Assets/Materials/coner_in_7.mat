@@ -82,7 +82,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _halfSize: {r: 14.527319, g: 7.2623672, b: 0, a: 0}
+    - _halfSize: {r: 18, g: 9.772905, b: 0, a: 0}
     - _r: {r: 7, g: 7, b: 7, a: 7}
-    - _rect2props: {r: 0.0000009536743, g: 0, b: 10.457888, a: 10.457888}
+    - _rect2props: {r: 0.0000019073486, g: -0.0000019073486, b: 14.6886635, a: 14.6886635}
   m_BuildTextureStacks: []

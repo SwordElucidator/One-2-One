@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -16,7 +18,7 @@ public class SingleController : MonoBehaviour
     public GameObject main;
     public GameObject timeArea;
     public RectTransform timeContainer;
-    public Text timeText;
+    public Localize timeText;
     public Image timeProgress;
     public Text question;
     public Text[] answers;
@@ -60,6 +62,7 @@ public class SingleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        I2.Loc.LocalizationManager.CurrentLanguage = "Spanish";
         _hardness = Random.Range(0.1f, 0.9f);
         
         if (InterState.Inherit)  // 继承
@@ -194,7 +197,7 @@ public class SingleController : MonoBehaviour
         timeProgress.color = new Color(0f, 0.69f, 0.35f);
         _loseRate = 0.33f;
         _questionAnswered = false;
-        timeText.text = "Time";
+        timeText.SetTerm("Time");
         StartCoroutine(AutoHandleTimeOver());
     }
 
@@ -209,6 +212,10 @@ public class SingleController : MonoBehaviour
             if (!_questionAnswered)
             {
                 ChooseAnswer(-1);
+                if (timeText.Term != "Time Out")
+                {
+                    timeText.SetTerm("Time Out");
+                }
             }
             yield return new WaitForSeconds(1f);  // 给点时间看看
             if (!_dead)
@@ -417,13 +424,6 @@ public class SingleController : MonoBehaviour
             if (lorigin >= 0.33 && _leftTimePercentage < 0.33)
             {
                 timeProgress.color = new Color(0.82f, 0.01f, 0.11f);
-            }
-        }
-        else
-        {
-            if (_leftTimePercentage <= 0)
-            {
-                timeText.text = "Time Out";
             }
         }
     }
