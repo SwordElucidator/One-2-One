@@ -297,6 +297,22 @@ MonoBehaviour:
       - Tu tienes
       Flags: 0000
       Languages_Touch: []
+    - Term: YOUR NAME
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR NAME
+      - TU NOMBRE
+      Flags: 0000
+      Languages_Touch: []
+    - Term: champion
+      TermType: 0
+      Description: 
+      Languages:
+      - champion
+      - "campe\xF3n"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -312,7 +328,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbySg8X35OKJoi5WGwXu1zw1UDtaoZcLF198mTdaovtV5I0mLAg/exec
     Google_SpreadsheetKey: 18AWzU2coIuW0wtGeAxxAvQJEU5BibLrmwpP6b5Xvq5g
     Google_SpreadsheetName: I2Loc onepone Localization
-    Google_LastUpdatedVersion: 1604890170373
+    Google_LastUpdatedVersion: 1604891008856
     Google_Password: Caoshuo123
     GoogleUpdateFrequency: 3
     GoogleInEditorCheckFrequency: 2

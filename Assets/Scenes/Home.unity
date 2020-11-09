@@ -1398,7 +1398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 8, y: 8, z: 8, w: 8}
   material: {fileID: 2100000, guid: 776e719766fa44ad3bc788dab9d40506, type: 2}
-  rect2props: {x: 0.0000076293945, y: -0.0000038146973, z: 42.43823, w: 42.43823}
+  rect2props: {x: 0.0000038146973, y: -0.0000038146973, z: 41.8345, w: 41.8345}
 --- !u!1 &194637239
 GameObject:
   m_ObjectHideFlags: 0
@@ -2327,7 +2327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 25, y: 25, z: 25, w: 25}
   material: {fileID: 2100000, guid: 252abee27e261430383684aa54d0df5d, type: 2}
-  rect2props: {x: 0.0000076293945, y: -0.0000076293945, z: 84.878426, w: 84.878426}
+  rect2props: {x: 0.000015258789, y: -0.0000076293945, z: 81.09701, w: 81.09701}
 --- !u!1 &314566022
 GameObject:
   m_ObjectHideFlags: 0
@@ -3049,6 +3049,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430068023}
   m_CullTransparentMesh: 0
+--- !u!114 &459852734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332e36893e7cf4a49b3c1f72f76cd5e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTarget: {fileID: 1289417885}
 --- !u!1 &481889963
 GameObject:
   m_ObjectHideFlags: 0
@@ -3512,7 +3525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 6, y: 6, z: 6, w: 6}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.0000076293945, y: -0.0000076293945, z: 60.032536, w: 60.032536}
+  rect2props: {x: 0.0000076293945, y: 0, z: 59.117775, w: 59.117775}
 --- !u!114 &569211745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4287,7 +4300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 8, y: 8, z: 8, w: 8}
   material: {fileID: 2100000, guid: 776e719766fa44ad3bc788dab9d40506, type: 2}
-  rect2props: {x: 0.0000038146973, y: -0.0000076293945, z: 42.438236, w: 42.438236}
+  rect2props: {x: 0.0000076293945, y: 0, z: 41.834496, w: 41.834496}
 --- !u!1 &713523689
 GameObject:
   m_ObjectHideFlags: 0
@@ -4342,7 +4355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 6, y: 6, z: 6, w: 6}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.0000076293945, y: 0, z: 53.224144, w: 53.224144}
+  rect2props: {x: 0.0000076293945, y: 0, z: 52.021423, w: 52.021423}
 --- !u!114 &713523692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4853,7 +4866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 6, y: 6, z: 6, w: 6}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.000022888184, y: 0, z: 106.41776, w: 106.41776}
+  rect2props: {x: 0.000015258789, y: 0, z: 103.12793, w: 103.12793}
 --- !u!1 &817990781
 GameObject:
   m_ObjectHideFlags: 0
@@ -5659,7 +5672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 6, y: 6, z: 6, w: 6}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.000022888184, y: 0.000015258789, z: 98.31081, w: 98.31081}
+  rect2props: {x: 0.000015258789, y: 0.000015258789, z: 93.885826, w: 93.885826}
 --- !u!1 &910388428
 GameObject:
   m_ObjectHideFlags: 0
@@ -5829,7 +5842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 4, y: 4, z: 4, w: 4}
   material: {fileID: 2100000, guid: 2eaa1594e1c934af782adbee8733a1b6, type: 2}
-  rect2props: {x: 0.0000038146973, y: -0.0000038146973, z: 43.262886, w: 43.262886}
+  rect2props: {x: 0.0000038146973, y: 0, z: 43.058033, w: 43.058033}
 --- !u!1 &913344111
 GameObject:
   m_ObjectHideFlags: 0
@@ -6224,6 +6237,7 @@ GameObject:
   - component: {fileID: 1009096619}
   - component: {fileID: 1009096621}
   - component: {fileID: 1009096620}
+  - component: {fileID: 1009096622}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -6292,6 +6306,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009096618}
   m_CullTransparentMesh: 0
+--- !u!114 &1009096622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009096618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: YOUR NAME
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 1424038942}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!1 &1015799474
 GameObject:
   m_ObjectHideFlags: 0
@@ -6753,7 +6805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 6, y: 6, z: 6, w: 6}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.000015258789, y: 0, z: 110.2312, w: 110.2312}
+  rect2props: {x: 0.000022888184, y: 0, z: 106.23497, w: 106.23497}
 --- !u!1 &1077705521
 GameObject:
   m_ObjectHideFlags: 0
@@ -7491,7 +7543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 8, y: 8, z: 8, w: 8}
   material: {fileID: 2100000, guid: 776e719766fa44ad3bc788dab9d40506, type: 2}
-  rect2props: {x: 0.0000038146973, y: -0.0000038146973, z: 35.01195, w: 35.01195}
+  rect2props: {x: 0.0000038146973, y: 0, z: 34.353146, w: 34.353146}
 --- !u!114 &1203278109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7746,7 +7798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 8, y: 8, z: 0, w: 0}
   material: {fileID: 2100000, guid: 78a3fdc82fd794e24a2cf42b3b1e04a0, type: 2}
-  rect2props: {x: 0.0000076293945, y: -4.0000076, z: 68.93139, w: 68.93139}
+  rect2props: {x: 0.0000076293945, y: -4.0000076, z: 67.18909, w: 67.18909}
 --- !u!114 &1263876517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8074,6 +8126,7 @@ GameObject:
   - component: {fileID: 1289417884}
   - component: {fileID: 1289417886}
   - component: {fileID: 1289417885}
+  - component: {fileID: 1289417887}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -8142,6 +8195,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1289417883}
   m_CullTransparentMesh: 0
+--- !u!114 &1289417887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289417883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: champion
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 459852734}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!1 &1296996755
 GameObject:
   m_ObjectHideFlags: 0
@@ -8349,7 +8440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 7, y: 7, z: 7, w: 7}
   material: {fileID: 2100000, guid: 998e39d79b3f444dba2fb51cada5e18f, type: 2}
-  rect2props: {x: 0.0000009536743, y: -0.0000009536743, z: 10.375247, w: 10.375247}
+  rect2props: {x: 0.00000047683716, y: -0.0000019073486, z: 10.27167, w: 10.27167}
 --- !u!114 &1318149449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8442,7 +8533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 6, y: 6, z: 6, w: 6}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.0000076293945, y: 0, z: 53.224144, w: 53.224144}
+  rect2props: {x: 0.0000076293945, y: 0, z: 52.021416, w: 52.021416}
 --- !u!114 &1326429206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8683,7 +8774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 8, y: 8, z: 8, w: 8}
   material: {fileID: 2100000, guid: 776e719766fa44ad3bc788dab9d40506, type: 2}
-  rect2props: {x: 0.000005722046, y: -0.0000038146973, z: 35.011955, w: 35.011955}
+  rect2props: {x: 0.0000038146973, y: -0.0000038146973, z: 34.353146, w: 34.353146}
 --- !u!1 &1343329515
 GameObject:
   m_ObjectHideFlags: 0
@@ -8738,7 +8829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 8, y: 8, z: 8, w: 8}
   material: {fileID: 2100000, guid: 776e719766fa44ad3bc788dab9d40506, type: 2}
-  rect2props: {x: 0.0000038146973, y: -0.0000038146973, z: 35.01195, w: 35.01195}
+  rect2props: {x: 0.0000038146973, y: 0, z: 34.353146, w: 34.353146}
 --- !u!114 &1343329518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9709,6 +9800,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423797661}
   m_CullTransparentMesh: 0
+--- !u!114 &1424038942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332e36893e7cf4a49b3c1f72f76cd5e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTarget: {fileID: 1009096620}
 --- !u!1 &1445387030
 GameObject:
   m_ObjectHideFlags: 0
@@ -9842,7 +9946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 6, y: 6, z: 6, w: 6}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.000022888184, y: 0, z: 101.260475, w: 101.260475}
+  rect2props: {x: 0.000015258789, y: 0, z: 97.65782, w: 97.65782}
 --- !u!114 &1478255146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10541,7 +10645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 6, y: 6, z: 6, w: 6}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.000022888184, y: 0, z: 106.41776, w: 106.41776}
+  rect2props: {x: 0.000015258789, y: 0, z: 103.12793, w: 103.12793}
 --- !u!114 &1547793215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12195,7 +12299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 8, y: 8, z: 0, w: 0}
   material: {fileID: 2100000, guid: 78a3fdc82fd794e24a2cf42b3b1e04a0, type: 2}
-  rect2props: {x: 0.0000076293945, y: -4.0000076, z: 68.93139, w: 68.93139}
+  rect2props: {x: 0.000011444092, y: -3.9999924, z: 67.18909, w: 67.18909}
 --- !u!1 &1782143935
 GameObject:
   m_ObjectHideFlags: 0
@@ -12855,7 +12959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 6, y: 6, z: 6, w: 6}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.0000076293945, y: 0, z: 60.03254, w: 60.03254}
+  rect2props: {x: 0.0000038146973, y: -0.000015258789, z: 59.117783, w: 59.117783}
 --- !u!1 &1906549888
 GameObject:
   m_ObjectHideFlags: 0
@@ -12910,7 +13014,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 6, y: 6, z: 6, w: 6}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.000022888184, y: 0, z: 101.84988, w: 101.84988}
+  rect2props: {x: 0.000015258789, y: 0, z: 98.282974, w: 98.282974}
 --- !u!114 &1906549891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13388,7 +13492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r: {x: 0, y: 0, z: 0, w: 0}
   material: {fileID: 2100000, guid: 16a44b445ab884cc283fd01b69abd60e, type: 2}
-  rect2props: {x: 0.000015258789, y: 0, z: 105.50311, w: 105.50311}
+  rect2props: {x: 0.000022888184, y: 0, z: 101.90047, w: 101.90047}
 --- !u!1 &2033184212
 GameObject:
   m_ObjectHideFlags: 0

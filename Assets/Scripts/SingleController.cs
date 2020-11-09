@@ -62,7 +62,6 @@ public class SingleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        I2.Loc.LocalizationManager.CurrentLanguage = "Spanish";
         _hardness = Random.Range(0.1f, 0.9f);
         
         if (InterState.Inherit)  // 继承
