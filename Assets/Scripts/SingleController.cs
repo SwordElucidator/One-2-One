@@ -32,6 +32,10 @@ public class SingleController : MonoBehaviour
 
     public Text scoreTextTop;
     public Text moneyTextTop;
+    public Text finalMoneyTextTop;
+
+    public CanvasGroup topScoreCanvasGroup;
+    public CanvasGroup finalMoneyCanvasGroup;
     
     public Text scoreText;
     public Text bestScoreText;
@@ -111,6 +115,7 @@ public class SingleController : MonoBehaviour
         while (group.alpha > 0)
         {
             group.alpha -= Time.deltaTime * 1f;
+            topScoreCanvasGroup.alpha -= Time.deltaTime * 1f;
             yield return null;
         }
         main.SetActive(false);
@@ -118,6 +123,7 @@ public class SingleController : MonoBehaviour
         scoreText.text = _progress.ToString();
         moneyAmount.text = "+" + _money;
         // TODO 结束的时候直接给钱，但复活的时候要注意把这些钱扣掉
+        // TODO 展示目前钱数  finalMoneyTextTop.text = "20";
         
         if (_canRevive)
         {
@@ -138,6 +144,7 @@ public class SingleController : MonoBehaviour
         while (endGroup.alpha < 1)
         {
             endGroup.alpha += Time.deltaTime * 1f;
+            finalMoneyCanvasGroup.alpha += Time.deltaTime * 1f;
             yield return null;
         }
     }
