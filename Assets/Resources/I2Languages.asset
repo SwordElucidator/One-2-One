@@ -105,6 +105,198 @@ MonoBehaviour:
       - "Se acab\xF3 el tiempo"
       Flags: 0000
       Languages_Touch: []
+    - Term: Survivor
+      TermType: 0
+      Description: 
+      Languages:
+      - Survivor
+      - Sobreviviente
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Challenge Failed
+      TermType: 0
+      Description: 
+      Languages:
+      - Challenge Failed
+      - "Desaf\xEDo fallido"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Extra reward
+      TermType: 0
+      Description: 
+      Languages:
+      - Extra reward
+      - Recompensa extra
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Get Money
+      TermType: 0
+      Description: 
+      Languages:
+      - Get Money
+      - Obtener dinero
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 1st
+      TermType: 0
+      Description: 
+      Languages:
+      - 1st
+      - "1 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 2nd
+      TermType: 0
+      Description: 
+      Languages:
+      - 2nd
+      - "2 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 3rd
+      TermType: 0
+      Description: 
+      Languages:
+      - 3rd
+      - "3 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 4th
+      TermType: 0
+      Description: 
+      Languages:
+      - 4th
+      - "4 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 5th
+      TermType: 0
+      Description: 
+      Languages:
+      - 5th
+      - "5 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 6th
+      TermType: 0
+      Description: 
+      Languages:
+      - 6th
+      - "6 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 7th
+      TermType: 0
+      Description: 
+      Languages:
+      - 7th
+      - "7 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 8th
+      TermType: 0
+      Description: 
+      Languages:
+      - 8th
+      - "8 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 9th
+      TermType: 0
+      Description: 
+      Languages:
+      - 9th
+      - "9 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 10th
+      TermType: 0
+      Description: 
+      Languages:
+      - 10th
+      - "10 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Redeem
+      TermType: 0
+      Description: 
+      Languages:
+      - Redeem
+      - Redimir
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sorry
+      TermType: 0
+      Description: 
+      Languages:
+      - Sorry
+      - Lo siento
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Take it
+      TermType: 0
+      Description: 
+      Languages:
+      - Take it
+      - "T\xF3malo"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Waiting for match ....
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Waiting for
+
+        match
+
+        ....'
+      - 'Esperando
+
+        partido
+
+        .... '
+      Flags: 0000
+      Languages_Touch: []
+    - Term: You Are
+      TermType: 0
+      Description: 
+      Languages:
+      - You Are
+      - "Usted est\xE1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: you
+      TermType: 0
+      Description: 
+      Languages:
+      - you
+      - "t\xFA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Double
+      TermType: 0
+      Description: 
+      Languages:
+      - Double
+      - Doble
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Your redeem
+      TermType: 0
+      Description: 
+      Languages:
+      - Your redeem
+      - Tu canjeo
+      Flags: 0000
+      Languages_Touch: []
+    - Term: You got
+      TermType: 0
+      Description: 
+      Languages:
+      - You got
+      - Tu tienes
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -120,7 +312,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbySg8X35OKJoi5WGwXu1zw1UDtaoZcLF198mTdaovtV5I0mLAg/exec
     Google_SpreadsheetKey: 18AWzU2coIuW0wtGeAxxAvQJEU5BibLrmwpP6b5Xvq5g
     Google_SpreadsheetName: I2Loc onepone Localization
-    Google_LastUpdatedVersion: 1604888569836
+    Google_LastUpdatedVersion: 1604890170373
     Google_Password: Caoshuo123
     GoogleUpdateFrequency: 3
     GoogleInEditorCheckFrequency: 2
