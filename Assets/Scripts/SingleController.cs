@@ -117,6 +117,8 @@ public class SingleController : MonoBehaviour
         _progress -= 1;  // 死得时候-1
         scoreText.text = _progress.ToString();
         moneyAmount.text = "+" + _money;
+        // TODO 结束的时候直接给钱，但复活的时候要注意把这些钱扣掉
+        
         if (_canRevive)
         {
             reviveButton.SetActive(true);
@@ -429,7 +431,7 @@ public class SingleController : MonoBehaviour
 
     public void Revive()
     {
-        // 复活，本质上是重load但继承进度,TODO 可能要退还已经入账的钱，或者设计成出去再退
+        // 复活，本质上是重load但继承进度,TODO 选择复活可能要退还已经入账的钱（下次一起结算）
         InterState.Hardness = _hardness;
         InterState.Money = _money;
         InterState.Progress = _progress;

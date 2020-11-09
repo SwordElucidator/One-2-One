@@ -139,7 +139,6 @@ public class CentralController : MonoBehaviour
         // 题目开始
         while (!_dead)
         {
-            // TODO 进度条
             var progress = _progress;
             yield return new WaitForSeconds(3);
             // 如果还是这道题
@@ -174,12 +173,15 @@ public class CentralController : MonoBehaviour
         }
         main.SetActive(false);
         var final = _aliveNoneSelfAvatars.Count + 1;
-        if (final <= 4)
+        if (final <= 5)
         {
             rank.SetTerm(final == 1 ? "1st" : final == 2 ? "2nd" : final == 3 ? "3rd" : (final + "th"));
-            _money = final == 1 ? 10 : final == 2 ? 4 : final == 3 ? 3 : 2;
+            _money = final == 1 ? 10 : final == 2 ? 4 : final == 3 ? 3 : final == 4 ? 2 : 1;
             moneyAmount.text = "+" + _money;
             doubleButtonText.SetTerm(final == 1 ? "Get Money" : "Double");
+            
+            // TODO 拿钱，这里只有2-5名是直接拿一份钱的，4、3、2、1
+            
             endArea.SetActive(true);
             var endGroup = endArea.GetComponent<CanvasGroup>();
             while (endGroup.alpha < 1)
@@ -290,7 +292,6 @@ public class CentralController : MonoBehaviour
 
     private IEnumerator SimulateChoose()
     {
-        // TODO 根据_maxRank来决定
         // _aliveNoneSelfAvatars;  // 
         // _toRemoveAvatars
     
@@ -599,7 +600,8 @@ public class CentralController : MonoBehaviour
                 extraMoneyNameText.SetTerm("You got");
                 break;
         }
-        // TODO 双倍/拿钱/赎回，总之是给钱的，要给到用户的兜里
+        // TODO 双倍/拿钱/赎回，总之是给钱的
+        // 其中第一名是看了广告拿钱10块，第二到第五是4、3、2、1（双倍的奖励） 其他的就是赎回钱（目前先写成1块，可能有浮点？）
         extraMoneyPanel.SetActive(true);
         
     }
