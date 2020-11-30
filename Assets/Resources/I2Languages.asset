@@ -1,0 +1,341 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0b0c553be8edd4682e9180fdd13e37, type: 3}
+  m_Name: I2Languages
+  m_EditorClassIdentifier: 
+  mSource:
+    UserAgreesToHaveItOnTheScene: 0
+    UserAgreesToHaveItInsideThePluginsFolder: 0
+    GoogleLiveSyncIsUptoDate: 1
+    mTerms:
+    - Term: USD
+      TermType: 0
+      Description: 
+      Languages:
+      - USD
+      - USD
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Video is loading...
+      TermType: 0
+      Description: 
+      Languages:
+      - Video is loading...
+      - "El video se est\xE1 cargando ..."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Revive
+      TermType: 0
+      Description: 
+      Languages:
+      - Revive
+      - Reanimar
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Try again
+      TermType: 0
+      Description: 
+      Languages:
+      - Try again
+      - "Int\xE9ntalo de nuevo"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: No, thanks
+      TermType: 0
+      Description: 
+      Languages:
+      - No, thanks
+      - No, gracias
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Time
+      TermType: 0
+      Description: 
+      Languages:
+      - Time
+      - Hora
+      Flags: 0000
+      Languages_Touch: []
+    - Term: score
+      TermType: 0
+      Description: 
+      Languages:
+      - score
+      - "Puntuaci\xF3n"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Your Score
+      TermType: 0
+      Description: 
+      Languages:
+      - Your Score
+      - "Tu puntuaci\xF3n"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Best Score
+      TermType: 0
+      Description: 
+      Languages:
+      - Best Score
+      - "Mejor puntuaci\xF3n"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Reward
+      TermType: 0
+      Description: 
+      Languages:
+      - Reward
+      - Recompensa
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Time Out
+      TermType: 0
+      Description: 
+      Languages:
+      - Time Out
+      - "Se acab\xF3 el tiempo"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Survivor
+      TermType: 0
+      Description: 
+      Languages:
+      - Survivor
+      - Sobreviviente
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Challenge Failed
+      TermType: 0
+      Description: 
+      Languages:
+      - Challenge Failed
+      - "Desaf\xEDo fallido"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Extra reward
+      TermType: 0
+      Description: 
+      Languages:
+      - Extra reward
+      - Recompensa extra
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Get Money
+      TermType: 0
+      Description: 
+      Languages:
+      - Get Money
+      - Obtener dinero
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 1st
+      TermType: 0
+      Description: 
+      Languages:
+      - 1st
+      - "1 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 2nd
+      TermType: 0
+      Description: 
+      Languages:
+      - 2nd
+      - "2 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 3rd
+      TermType: 0
+      Description: 
+      Languages:
+      - 3rd
+      - "3 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 4th
+      TermType: 0
+      Description: 
+      Languages:
+      - 4th
+      - "4 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 5th
+      TermType: 0
+      Description: 
+      Languages:
+      - 5th
+      - "5 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 6th
+      TermType: 0
+      Description: 
+      Languages:
+      - 6th
+      - "6 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 7th
+      TermType: 0
+      Description: 
+      Languages:
+      - 7th
+      - "7 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 8th
+      TermType: 0
+      Description: 
+      Languages:
+      - 8th
+      - "8 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 9th
+      TermType: 0
+      Description: 
+      Languages:
+      - 9th
+      - "9 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 10th
+      TermType: 0
+      Description: 
+      Languages:
+      - 10th
+      - "10 \xB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Redeem
+      TermType: 0
+      Description: 
+      Languages:
+      - Redeem
+      - Redimir
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sorry
+      TermType: 0
+      Description: 
+      Languages:
+      - Sorry
+      - Lo siento
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Take it
+      TermType: 0
+      Description: 
+      Languages:
+      - Take it
+      - "T\xF3malo"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Waiting for match ....
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Waiting for
+
+        match
+
+        ....'
+      - 'Esperando
+
+        partido
+
+        .... '
+      Flags: 0000
+      Languages_Touch: []
+    - Term: You Are
+      TermType: 0
+      Description: 
+      Languages:
+      - You Are
+      - "Usted est\xE1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: you
+      TermType: 0
+      Description: 
+      Languages:
+      - you
+      - "t\xFA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Double
+      TermType: 0
+      Description: 
+      Languages:
+      - Double
+      - Doble
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Your redeem
+      TermType: 0
+      Description: 
+      Languages:
+      - Your redeem
+      - Tu canjeo
+      Flags: 0000
+      Languages_Touch: []
+    - Term: You got
+      TermType: 0
+      Description: 
+      Languages:
+      - You got
+      - Tu tienes
+      Flags: 0000
+      Languages_Touch: []
+    - Term: YOUR NAME
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR NAME
+      - TU NOMBRE
+      Flags: 0000
+      Languages_Touch: []
+    - Term: champion
+      TermType: 0
+      Description: 
+      Languages:
+      - champion
+      - "campe\xF3n"
+      Flags: 0000
+      Languages_Touch: []
+    CaseInsensitiveTerms: 0
+    OnMissingTranslation: 1
+    mTerm_AppName: 
+    mLanguages:
+    - Name: English
+      Code: en
+      Flags: 0
+    - Name: Spanish
+      Code: es
+      Flags: 0
+    IgnoreDeviceLanguage: 0
+    _AllowUnloadingLanguages: 0
+    Google_WebServiceURL: https://script.google.com/macros/s/AKfycbySg8X35OKJoi5WGwXu1zw1UDtaoZcLF198mTdaovtV5I0mLAg/exec
+    Google_SpreadsheetKey: 18AWzU2coIuW0wtGeAxxAvQJEU5BibLrmwpP6b5Xvq5g
+    Google_SpreadsheetName: I2Loc onepone Localization
+    Google_LastUpdatedVersion: 1604891008856
+    Google_Password: Caoshuo123
+    GoogleUpdateFrequency: 3
+    GoogleInEditorCheckFrequency: 2
+    GoogleUpdateSynchronization: 1
+    GoogleUpdateDelay: 0
+    Assets: []
+    Spreadsheet_LocalFileName: 
+    Spreadsheet_LocalCSVSeparator: ','
+    Spreadsheet_LocalCSVEncoding: utf-8
+    Spreadsheet_SpecializationAsRows: 1

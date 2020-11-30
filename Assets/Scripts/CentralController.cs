@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using GoogleMobileAds.Api;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ public class CentralController : MonoBehaviour
     public Text testInfo;
     public Text countDown;
     public GameObject main;
+    public Localize avatarText;
     public Text avatarCountText;
     public RawImage[] avatars;
     public RawImage[] avatarsShaders;
@@ -24,7 +26,7 @@ public class CentralController : MonoBehaviour
     public Texture2D deadTexture;
     public GameObject timeArea;
     public RectTransform timeContainer;
-    public Text timeText;
+    public Localize timeText;
     public Image timeProgress;
     public Text question;
     public Text[] answers;
@@ -37,13 +39,13 @@ public class CentralController : MonoBehaviour
     public GameObject endArea;
     public GameObject endAreaFail;
 
-    public Text rank;
+    public Localize rank;
     public Text moneyAmount;
 
-    public Text doubleButtonText;
+    public Localize doubleButtonText;
 
     public Text extraMoneyAmountText;
-    public Text extraMoneyNameText;
+    public Localize extraMoneyNameText;
     public GameObject extraMoneyPanel;
 
     private Dictionary<RawImage, RawImage> _avatarShaderMap;
@@ -97,7 +99,8 @@ public class CentralController : MonoBehaviour
     private IEnumerator Initial()
     {
         var currentUserCount = Random.Range(1, 17);
-        avatarCountText.text = "Player " + currentUserCount + "/20";
+        avatarText.SetTerm("Player");
+        avatarCountText.text = currentUserCount + "/20";
         _aliveNoneSelfAvatars = new List<RawImage>();
         for (var i = 1; i < currentUserCount; i++)
         {
@@ -113,7 +116,7 @@ public class CentralController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(0.1f, 1.5f));
             avatars[i].gameObject.SetActive(true);
             avatars[i].texture = Resources.Load<Texture2D>("Avatars/" + (i + 1));
-            avatarCountText.text = "Player " + (i + 1) + "/20";
+            avatarCountText.text = (i + 1) + "/20";
             _aliveNoneSelfAvatars.Add(avatars[i]);
         }
 
@@ -127,7 +130,8 @@ public class CentralController : MonoBehaviour
         countDown.text = "1";
         yield return new WaitForSeconds(1);
         countDown.gameObject.SetActive(false);
-        avatarCountText.text = "Survivor 20/20";
+        avatarText.SetTerm("Survivor");
+        avatarCountText.text = "20/20";
 
         GenerateQuestion();
         main.SetActive(true);
@@ -135,7 +139,6 @@ public class CentralController : MonoBehaviour
         // 题目开始
         while (!_dead)
         {
-            // TODO 进度条
             var progress = _progress;
             yield return new WaitForSeconds(3);
             // 如果还是这道题
@@ -170,12 +173,15 @@ public class CentralController : MonoBehaviour
         }
         main.SetActive(false);
         var final = _aliveNoneSelfAvatars.Count + 1;
-        if (final <= 4)
+        if (final <= 5)
         {
-            rank.text = final == 1 ? "1st" : final == 2 ? "2nd" : final == 3 ? "3rd" : (final + "th");
-            _money = final == 1 ? 10 : final == 2 ? 4 : final == 3 ? 3 : 2;
+            rank.SetTerm(final == 1 ? "1st" : final == 2 ? "2nd" : final == 3 ? "3rd" : (final + "th"));
+            _money = final == 1 ? 10 : final == 2 ? 4 : final == 3 ? 3 : final == 4 ? 2 : 1;
             moneyAmount.text = "+" + _money;
-            doubleButtonText.text = final == 1 ? "Get Money" : "Double";
+            doubleButtonText.SetTerm(final == 1 ? "Get Money" : "Double");
+            
+            // TODO 拿钱，这里只有2-5名是直接拿一份钱的，4、3、2、1
+            
             endArea.SetActive(true);
             var endGroup = endArea.GetComponent<CanvasGroup>();
             while (endGroup.alpha < 1)
@@ -263,7 +269,7 @@ public class CentralController : MonoBehaviour
         timeProgress.color = new Color(0f, 0.69f, 0.35f);
         _loseRate = 0.33f;
         _questionAnswered = false;
-        timeText.text = "Time";
+        timeText.SetTerm("Time");
         StartCoroutine(SimulateChoose());
     }
     
@@ -286,7 +292,6 @@ public class CentralController : MonoBehaviour
 
     private IEnumerator SimulateChoose()
     {
-        // TODO 根据_maxRank来决定
         // _aliveNoneSelfAvatars;  // 
         // _toRemoveAvatars
     
@@ -342,7 +347,7 @@ public class CentralController : MonoBehaviour
                 _avatarShaderMap[_aliveNoneSelfAvatars[i]].color = _deadColor;
                 _avatarShaderMap[_aliveNoneSelfAvatars[i]].transform.Find("Mark").GetComponent<RawImage>().texture = deadTexture;
                 _leftAliveCount -= 1;
-                avatarCountText.text = "Survivor " + _leftAliveCount + "/20";
+                avatarCountText.text = _leftAliveCount + "/20";
                 _aliveNoneSelfAvatars.RemoveAt(i);
                 // Debug.Log("清理");
                 continue;
@@ -372,7 +377,7 @@ public class CentralController : MonoBehaviour
                 _avatarShaderMap[_aliveNoneSelfAvatars[i]].color = _deadColor;
                 _avatarShaderMap[_aliveNoneSelfAvatars[i]].transform.Find("Mark").GetComponent<RawImage>().texture = deadTexture;
                 _leftAliveCount -= 1;
-                avatarCountText.text = "Survivor " + _leftAliveCount + "/20";
+                avatarCountText.text = _leftAliveCount + "/20";
                 // Debug.Log("清理");
                 _aliveNoneSelfAvatars.RemoveAt(i);
             }
@@ -387,7 +392,7 @@ public class CentralController : MonoBehaviour
                 _avatarShaderMap[_aliveNoneSelfAvatars[i]].color = _deadColor;
                 _avatarShaderMap[_aliveNoneSelfAvatars[i]].transform.Find("Mark").GetComponent<RawImage>().texture = deadTexture;
                 _leftAliveCount -= 1;
-                avatarCountText.text = "Survivor " + _leftAliveCount + "/20";
+                avatarCountText.text = _leftAliveCount + "/20";
                 // Debug.Log("清理");
                 _aliveNoneSelfAvatars.RemoveAt(i);
             }
@@ -430,7 +435,7 @@ public class CentralController : MonoBehaviour
             _avatarShaderMap[avatars[0]].color = _deadColor;
             _avatarShaderMap[avatars[0]].transform.Find("Mark").GetComponent<RawImage>().texture = deadTexture;
             _leftAliveCount -= 1;
-            avatarCountText.text = "Survivor " + _leftAliveCount + "/20";
+            avatarCountText.text = _leftAliveCount + "/20";
         }
         else
         {
@@ -573,7 +578,7 @@ public class CentralController : MonoBehaviour
         }
         else
         {
-            timeText.text = "Time Out";
+            timeText.SetTerm("Time Out");
         }
     }
 
@@ -588,14 +593,15 @@ public class CentralController : MonoBehaviour
         {
             case "Redeem":
                 extraMoneyAmountText.text = "+" + _bet;
-                extraMoneyNameText.text = "Your redeem";
+                extraMoneyNameText.SetTerm("Your redeem");
                 break;
             case "Money":
                 extraMoneyAmountText.text = "+" + _money;
-                extraMoneyNameText.text = "You got";
+                extraMoneyNameText.SetTerm("You got");
                 break;
         }
-        // TODO 双倍/拿钱/赎回，总之是给钱的，要给到用户的兜里
+        // TODO 双倍/拿钱/赎回，总之是给钱的
+        // 其中第一名是看了广告拿钱10块，第二到第五是4、3、2、1（双倍的奖励） 其他的就是赎回钱（目前先写成1块，可能有浮点？）
         extraMoneyPanel.SetActive(true);
         
     }

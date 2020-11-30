@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -16,7 +18,7 @@ public class SingleController : MonoBehaviour
     public GameObject main;
     public GameObject timeArea;
     public RectTransform timeContainer;
-    public Text timeText;
+    public Localize timeText;
     public Image timeProgress;
     public Text question;
     public Text[] answers;
@@ -30,6 +32,10 @@ public class SingleController : MonoBehaviour
 
     public Text scoreTextTop;
     public Text moneyTextTop;
+    public Text finalMoneyTextTop;
+
+    public CanvasGroup topScoreCanvasGroup;
+    public CanvasGroup finalMoneyCanvasGroup;
     
     public Text scoreText;
     public Text bestScoreText;
@@ -109,12 +115,16 @@ public class SingleController : MonoBehaviour
         while (group.alpha > 0)
         {
             group.alpha -= Time.deltaTime * 1f;
+            topScoreCanvasGroup.alpha -= Time.deltaTime * 1f;
             yield return null;
         }
         main.SetActive(false);
         _progress -= 1;  // 死得时候-1
         scoreText.text = _progress.ToString();
         moneyAmount.text = "+" + _money;
+        // TODO 结束的时候直接给钱，但复活的时候要注意把这些钱扣掉
+        // TODO 展示目前钱数  finalMoneyTextTop.text = "20";
+        
         if (_canRevive)
         {
             reviveButton.SetActive(true);
@@ -134,6 +144,7 @@ public class SingleController : MonoBehaviour
         while (endGroup.alpha < 1)
         {
             endGroup.alpha += Time.deltaTime * 1f;
+            finalMoneyCanvasGroup.alpha += Time.deltaTime * 1f;
             yield return null;
         }
     }
@@ -194,7 +205,7 @@ public class SingleController : MonoBehaviour
         timeProgress.color = new Color(0f, 0.69f, 0.35f);
         _loseRate = 0.33f;
         _questionAnswered = false;
-        timeText.text = "Time";
+        timeText.SetTerm("Time");
         StartCoroutine(AutoHandleTimeOver());
     }
 
@@ -209,6 +220,10 @@ public class SingleController : MonoBehaviour
             if (!_questionAnswered)
             {
                 ChooseAnswer(-1);
+                if (timeText.Term != "Time Out")
+                {
+                    timeText.SetTerm("Time Out");
+                }
             }
             yield return new WaitForSeconds(1f);  // 给点时间看看
             if (!_dead)
@@ -419,18 +434,11 @@ public class SingleController : MonoBehaviour
                 timeProgress.color = new Color(0.82f, 0.01f, 0.11f);
             }
         }
-        else
-        {
-            if (_leftTimePercentage <= 0)
-            {
-                timeText.text = "Time Out";
-            }
-        }
     }
 
     public void Revive()
     {
-        // 复活，本质上是重load但继承进度,TODO 可能要退还已经入账的钱，或者设计成出去再退
+        // 复活，本质上是重load但继承进度,TODO 选择复活可能要退还已经入账的钱（下次一起结算）
         InterState.Hardness = _hardness;
         InterState.Money = _money;
         InterState.Progress = _progress;
