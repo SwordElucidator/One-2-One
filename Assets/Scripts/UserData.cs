@@ -14,10 +14,10 @@ public class UserData
         return _instance;
     }
 
-    public float money = 0;
-    public int coin = 0;
-    public int bestScore = 0;
-    public int championCount = 0;
+    public float money = 0; // TODO set
+    public int coin = 0; // TODO set
+    public int bestScore = 0; // TODO set
+    public int championCount = 0; // TODO set
     public long lastLogin = 0;
     public String userName = "";
 

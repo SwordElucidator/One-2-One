@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHomeMainMessageTarget
+public class HomeMainController : MonoBehaviour, IPlayerMessageTarget
 {
     // main
     public Text mainMoneyText;
@@ -21,11 +21,10 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     // settings
     public GameObject settingsObj;
-    public RawImage settingsAvatarImage;
+    public GameObject settingsAvatarObj;
+    public GameObject settingsAgreementObj;
+    public Image settingsAvatarImage;
     public InputField settingsNameInput;
-
-    // agreement
-    public GameObject agreement;
 
     // bill
     public GameObject billObj;
@@ -115,6 +114,7 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
     public void OnSettingsShowPress()
     {
         settingsObj.SetActive(true);
+        settingsAvatarObj.SetActive(false);
         // settingsAvatarImage.texture = ???; // TODO perGet
         settingsNameInput.text = UserData.Instance().userName;
     }
@@ -126,7 +126,18 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
 
     public void OnSettingsAvatarPress()
     {
-        Player.SelectAvatar();
+        settingsAvatarObj.SetActive(true);
+    }
+
+    public void OnSettingsAvatarItemPress(int sort)
+    {
+        // Player.SelectAvatar(); TODO
+        OnSettingsAvatarBackPress();
+    }
+
+    public void OnSettingsAvatarBackPress()
+    {
+        settingsAvatarObj.SetActive(false);
     }
 
     public void OnSettingsNameSavePress()
@@ -135,17 +146,14 @@ public class HomeMainController : MonoBehaviour, IPlayerMessageTarget // , IHome
         OnSettingsHidePress();
     }
 
-    /**
-     ***************************************** Agreement ******************************************* 
-     */
-    public void OnAgreementShowPress()
+    public void OnSettingsAgreementShowPress()
     {
-        agreement.SetActive(true);
+        settingsAgreementObj.SetActive(true);
     }
 
-    public void OnAgreementHidePress()
+    public void OnSettingsAgreementHidePress()
     {
-        agreement.SetActive(false);
+        settingsAgreementObj.SetActive(false);
     }
 
     /**

@@ -28,6 +28,7 @@ public static class Player
         // TODO 选择头像
     }
 
+    // TODO set
     public static void AddBill(float change)
     {
         Bill b = Bill.Create(Utils.GetTimeStamp(DateTime.Now), change, Config.GetUnit());
